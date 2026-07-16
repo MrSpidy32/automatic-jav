@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+{% block title %}OneJAV · JAV.guru{% endblock %}
+{% block head_extra %}{% endblock %}
+{% block content %}
+<div class="top-bar">
+  <h1><span style="color:var(--color-accent)">OneJAV</span> · JAV.guru</h1>
+  <div class="meta" id="stats"></div>
+</div>
+
+<div class="controls">
+  <input id="filter" type="text" placeholder="Search by code, actress, tag..." autocomplete="off" aria-label="Search torrents">
+</div>
+
+<div id="loading" class="loading">Loading data...</div>
+<div id="container" class="vgrid"></div>
+{% endblock %}
+
+{% block body_extra %}
+<script>
+let DATA = [];
+
+fetch("onejav.json")
+  .then(r => r.json())
+  .then(data => {
+    DATA = data;
+    document.getElementById("loading").style.display = "none";
+    updateStats(data.length);
+    initVirtual();
+  })
+  .catch(() => {
+    document.getElementById("loading").textContent = "Failed to load data.";
+  });
+
+function updateStats(shown) {
+  document.getElementById("stats").innerHTML =
+    `<b>${shown.toLocaleString()}</b> / ${DATA.length.toLocaleString()} torrents`;
+}
+
+function initVirtual() {
+  const container = document.getElementById("container");
+  const rowHeight = 420;
+  const buffer = 4;
+  let lastQ = "";
+  let filtered = DATA;
+
+  function refilter() {
+    const q = document.getElementById("filter").value.toLowerCase().trim();
+    if (q !== lastQ) {
+      lastQ = q;
+      filtered = q ? DATA.filter(v => {
+        return v.code.toLowerCase().includes(q)
+          || (v.actresses || "").toLowerCase().includes(q)
+          || (v.tags || "").toLowerCase().includes(q)
+          || (v.title || "").toLowerCase().includes(q)
+          || (v.source_tag || "").includes(q);
+      }) : DATA;
+      updateStats(filtered.length);
+    }
+    return filtered;
+  }
+
+  function render() {
+    const items = refilter();
+    const scrollTop = window.scrollY;
+    const screenH = window.innerHeight;
+    const cols = getCols();
+    const totalRows = Math.ceil(items.length / cols);
+
+    const startRow = Math.max(0, Math.floor(scrollTop / rowHeight) - buffer);
+    const endRow = Math.min(totalRows, Math.ceil((scrollTop + screenH) / rowHeight) + buffer);
+
+    const si = startRow * cols;
+    const ei = Math.min(items.length, endRow * cols);
+
+    container.innerHTML = "";
+    if (items.length === 0) {
+      const empty = document.createElement("div");
+      empty.style.cssText = "grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--color-text-dim);font-size:15px;";
+      const q = document.getElementById("filter").value;
+      empty.textContent = q ? 'No results found for "' + q + '"' : "No results found";
+      container.appendChild(empty);
+      return;
+    }
+    for (let i = si; i < ei; i++) {
+      container.appendChild(buildCard(items[i]));
+    }
+
+    container.style.paddingTop  = startRow * rowHeight + "px";
+    container.style.paddingBottom = Math.max(0, totalRows - endRow) * rowHeight + "px";
+  }
+
+  function getCols() {
+    const w = window.innerWidth;
+    if (w >= 1400) return 5;
+    if (w >= 1024) return 4;
+    if (w >= 640)  return 3;
+    return 2;
+  }
+
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(() => { render(); ticking = false; }); }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", render);
+  document.getElementById("filter").oninput = render;
+  render();
+}
+
+const DOWNLOAD_SVG = '<svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:currentColor"><path d="M12 16l-5-5h3V4h4v7h3l-5 5zm-7 4h14v-2H5v2z"/></svg>';
+
+function buildCard(v) {
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const thumbDiv = document.createElement("div");
+  thumbDiv.className = "card-thumb";
+
+  if (v.image_url) {
+    const img = document.createElement("img");
+    img.loading = "lazy";
+    img.alt = v.code;
+    img.src = v.image_url;
+    img.onerror = function() { this.style.display = "none"; };
+    thumbDiv.appendChild(img);
+  }
+
+  if (v.size) {
+    const sizeBadge = document.createElement("span");
+    sizeBadge.className = "badge";
+    sizeBadge.style.cssText = "position:absolute;top:8px;right:8px;background:oklch(0 0 0 / 0.7);color:var(--color-warning);backdrop-filter:blur(4px);";
+    sizeBadge.textContent = v.size;
+    thumbDiv.appendChild(sizeBadge);
+  }
+
+  if (v.date) {
+    const dateBadge = document.createElement("span");
+    dateBadge.className = "badge";
+    dateBadge.style.cssText = "position:absolute;bottom:8px;left:8px;background:oklch(0 0 0 / 0.7);color:var(--color-text-dim);backdrop-filter:blur(4px);";
+    dateBadge.textContent = v.date;
+    thumbDiv.appendChild(dateBadge);
+  }
+
+  const body = document.createElement("div");
+  body.className = "card-body";
+
+  const codeDiv = document.createElement("div");
+  codeDiv.className = "card-code";
+  codeDiv.textContent = v.code.toUpperCase();
+
+  if (v.source_tag) {
+    const tag = document.createElement("span");
+    tag.className = v.source_tag === "jav.guru" ? "tag tag-guru" : "tag tag-cat";
+    tag.textContent = v.source_tag === "jav.guru" ? "JAV.guru" : "New";
+    codeDiv.appendChild(tag);
+  }
+  body.appendChild(codeDiv);
+
+  if (v.title) {
+    const titleDiv = document.createElement("div");
+    titleDiv.className = "card-url";
+    titleDiv.textContent = v.title;
+    titleDiv.title = v.title;
+    body.appendChild(titleDiv);
+  }
+
+  if (v.actresses) {
+    const actDiv = document.createElement("div");
+    actDiv.style.cssText = "font-size:12px;color:var(--color-accent);margin-bottom:6px;";
+    actDiv.textContent = v.actresses;
+    body.appendChild(actDiv);
+  }
+
+  if (v.tags) {
+    const tagsDiv = document.createElement("div");
+    tagsDiv.style.cssText = "display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px;";
+    const tagList = v.tags.split(", ").slice(0, 5);
+    for (const t of tagList) {
+      const pill = document.createElement("span");
+      pill.className = "pill";
+      pill.style.cssText = "background:var(--color-surface-2);color:var(--color-text-dim);cursor:default;";
+      pill.textContent = t;
+      tagsDiv.appendChild(pill);
+    }
+    if (v.tags.split(", ").length > 5) {
+      const more = document.createElement("span");
+      more.className = "pill";
+      more.style.cssText = "background:var(--color-surface-2);color:var(--color-text-dim);cursor:default;";
+      more.textContent = "+" + (v.tags.split(", ").length - 5);
+      tagsDiv.appendChild(more);
+    }
+    body.appendChild(tagsDiv);
+  }
+
+  if (v.torrent_url) {
+    const btn = document.createElement("a");
+    btn.style.cssText = "display:inline-flex;align-items:center;gap:6px;margin-top:auto;padding:8px 16px;background:var(--color-success);color:white;font-size:12px;font-weight:700;border:none;border-radius:var(--radius-md);cursor:pointer;text-decoration:none;transition:filter var(--transition);justify-content:center;";
+    btn.href = v.torrent_url;
+    btn.target = "_blank";
+    btn.rel = "noopener";
+    btn.innerHTML = DOWNLOAD_SVG + " Download .torrent";
+    btn.onmouseover = () => btn.style.filter = "brightness(1.15)";
+    btn.onmouseout = () => btn.style.filter = "";
+    body.appendChild(btn);
+  }
+
+  card.appendChild(thumbDiv);
+  card.appendChild(body);
+  return card;
+}
+</script>
+{% endblock %}

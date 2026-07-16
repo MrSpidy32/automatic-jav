@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %}Sitemap · JAV.guru{% endblock %}
+{% block head_extra %}
+<style>
+.sitemap-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-top: 16px;
+  box-shadow: var(--shadow-card);
+}
+.sitemap-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.sitemap-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 160px;
+  gap: 12px;
+  align-items: center;
+  padding: 10px 8px;
+  border-bottom: 1px solid var(--color-border);
+}
+.sitemap-row:last-child { border-bottom: none; }
+.sitemap-date {
+  color: var(--color-text-dim);
+  font-size: 12px;
+  border: 1px solid var(--color-border);
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+  width: fit-content;
+  background: var(--color-bg);
+}
+.sitemap-url {
+  color: var(--color-text);
+  text-decoration: none;
+  word-break: break-all;
+  font-size: 13px;
+}
+.sitemap-url:hover { color: var(--color-accent); text-decoration: underline; }
+.sitemap-host {
+  color: var(--color-text-dim);
+  font-size: 12px;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 900px) {
+  .sitemap-row { grid-template-columns: 110px 1fr; }
+  .sitemap-host { display: none; }
+}
+.dl-link {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+  text-decoration: none;
+  font-size: 12px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  transition: all var(--transition);
+}
+.dl-link:hover {
+  background: oklch(from var(--color-accent) l c h / 0.1);
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="top-bar">
+  <h1>Sitemap</h1>
+  <div class="meta">{{ rows|length }} links from all sources · Generated {{ generated|e }}</div>
+</div>
+
+<div class="controls">
+  <input id="q" type="text" placeholder="Filter links..." autocomplete="off" aria-label="Search links">
+  <div class="chip" id="countChip">{{ rows|length }} items</div>
+  <div style="flex:1"></div>
+  <a href="sitemap_export.csv" download class="dl-link">Download CSV</a>
+  <a href="sitemap.json" download class="dl-link">Download JSON</a>
+</div>
+
+<main>
+  <div class="sitemap-card">
+    <ul class="sitemap-list" id="list">
+      {% for r in rows %}
+      <li class="sitemap-row">
+        <span class="sitemap-date">{{ r.date_added or '—' }}</span>
+        <a class="sitemap-url" href="{{ r.page_url|e }}" target="_blank" rel="noopener noreferrer">{{ r.page_url|e }}</a>
+        <span class="sitemap-host">{{ r.host|e }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</main>
+{% endblock %}
+
+{% block body_extra %}
+<script>
+const q = document.getElementById('q');
+const list = document.getElementById('list');
+const countChip = document.getElementById('countChip');
+const rows = Array.from(list.querySelectorAll('li'));
+
+q.addEventListener('input', () => {
+  const term = (q.value || '').trim().toLowerCase();
+  let shown = 0;
+  rows.forEach(li => {
+    const t = li.textContent.toLowerCase();
+    const ok = !term || t.includes(term);
+    li.style.display = ok ? '' : 'none';
+    if (ok) shown++;
+  });
+  countChip.textContent = shown + ' items';
+});
+</script>
+{% endblock %}

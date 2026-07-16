@@ -133,7 +133,8 @@ def build_home():
         with_streams=with_streams,
         generated=generated,
         ITEMS_PER_PAGE=ITEMS_PER_PAGE,
-        js_items=js_items
+        js_items=js_items,
+        current_page="home"
     )
 
     with open(OUTPUT_FILE, "w", encoding="utf-8") as f:

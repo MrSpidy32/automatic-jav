@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block title %}Models · JAV.guru{% endblock %}
+{% block head_extra %}{% endblock %}
+{% block content %}
+<div class="top-bar">
+  <h1><span style="color:var(--color-accent)">Models</span> · Gallery</h1>
+  <div class="meta" id="stats"></div>
+</div>
+
+<div class="controls">
+  <input id="filter" type="text" placeholder="Search models..." autocomplete="off" aria-label="Search models">
+</div>
+
+<div id="loading" class="loading">Loading data...</div>
+<div id="container" class="vgrid-square"></div>
+{% endblock %}
+
+{% block body_extra %}
+<script>
+let DATA = [];
+
+fetch("models.json")
+  .then(r => r.json())
+  .then(data => {
+    DATA = data.sort((a, b) => {
+      if (a.source === "JavCT" && b.source !== "JavCT") return -1;
+      if (b.source === "JavCT" && a.source !== "JavCT") return 1;
+      return a.name.localeCompare(b.name);
+    });
+    document.getElementById("loading").style.display = "none";
+    updateStats(data.length);
+    initVirtual();
+  })
+  .catch(() => {
+    document.getElementById("loading").textContent = "Failed to load data.";
+  });
+
+function updateStats(shown) {
+  document.getElementById("stats").innerHTML =
+    `<b>${shown.toLocaleString()}</b> / ${DATA.length.toLocaleString()} models`;
+}
+
+function initVirtual() {
+  const container = document.getElementById("container");
+  const rowHeight = 300;
+  const buffer = 4;
+  let lastQ = "";
+  let filtered = DATA;
+
+  function refilter() {
+    const q = document.getElementById("filter").value.toLowerCase().trim();
+    if (q !== lastQ) {
+      lastQ = q;
+      filtered = q ? DATA.filter(v => v.name.toLowerCase().includes(q) || v.source.toLowerCase().includes(q)) : DATA;
+      updateStats(filtered.length);
+    }
+    return filtered;
+  }
+
+  function render() {
+    const items = refilter();
+    const scrollTop = window.scrollY;
+    const screenH = window.innerHeight;
+    const cols = getCols();
+    const totalRows = Math.ceil(items.length / cols);
+
+    const startRow = Math.max(0, Math.floor(scrollTop / rowHeight) - buffer);
+    const endRow = Math.min(totalRows, Math.ceil((scrollTop + screenH) / rowHeight) + buffer);
+
+    const si = startRow * cols;
+    const ei = Math.min(items.length, endRow * cols);
+
+    container.innerHTML = "";
+    if (items.length === 0) {
+      const empty = document.createElement("div");
+      empty.style.cssText = "grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--color-text-dim);font-size:15px;";
+      const q = document.getElementById("filter").value;
+      empty.textContent = q ? 'No results found for "' + q + '"' : "No results found";
+      container.appendChild(empty);
+      return;
+    }
+    for (let i = si; i < ei; i++) {
+      container.appendChild(buildCard(items[i]));
+    }
+
+    container.style.paddingTop  = startRow * rowHeight + "px";
+    container.style.paddingBottom = Math.max(0, totalRows - endRow) * rowHeight + "px";
+  }
+
+  function getCols() {
+    const w = window.innerWidth;
+    if (w >= 1400) return 6;
+    if (w >= 1024) return 5;
+    if (w >= 768)  return 4;
+    if (w >= 480)  return 3;
+    return 2;
+  }
+
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(() => { render(); ticking = false; }); }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", render);
+  document.getElementById("filter").oninput = render;
+  render();
+}
+
+function buildCard(m) {
+  const card = document.createElement("a");
+  card.className = "card";
+  card.href = m.page_url || "#";
+  if (m.page_url) { card.target = "_blank"; card.rel = "noopener"; }
+
+  const thumbDiv = document.createElement("div");
+  thumbDiv.className = "card-thumb";
+  thumbDiv.style.aspectRatio = "1/1";
+
+  if (m.image_url) {
+    const img = document.createElement("img");
+    img.loading = "lazy";
+    img.alt = m.name;
+    img.src = m.image_url;
+    img.onerror = function() { this.style.display = "none"; };
+    thumbDiv.appendChild(img);
+  }
+
+  if (m.views) {
+    const badge = document.createElement("span");
+    badge.className = "badge";
+    badge.style.cssText = "position:absolute;top:8px;right:8px;background:oklch(0 0 0 / 0.7);color:#fff;backdrop-filter:blur(4px);";
+    badge.textContent = m.views + " views";
+    thumbDiv.appendChild(badge);
+  }
+
+  const body = document.createElement("div");
+  body.className = "card-body";
+  body.style.textAlign = "center";
+
+  const titleDiv = document.createElement("div");
+  titleDiv.style.cssText = "font-weight:600;font-size:14px;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;";
+  titleDiv.textContent = m.name;
+
+  const sourceDiv = document.createElement("div");
+  sourceDiv.style.cssText = "font-size:11px;color:var(--color-text-dim);";
+  sourceDiv.textContent = m.source;
+
+  body.appendChild(titleDiv);
+  body.appendChild(sourceDiv);
+
+  card.appendChild(thumbDiv);
+  card.appendChild(body);
+  return card;
+}
+</script>
+{% endblock %}

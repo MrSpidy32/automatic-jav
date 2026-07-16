@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}Code Index · JAV.guru{% endblock %}
+{% block head_extra %}
+<style>
+.code-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px;
+  margin-top: 20px;
+}
+.code-chip {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 12px 10px;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  font-size: 13px;
+  cursor: pointer;
+  user-select: none;
+  transition: all var(--transition);
+  color: var(--color-text);
+}
+.code-chip:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-elevated);
+}
+.code-chip:active {
+  transform: translateY(0);
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="top-bar">
+  <h1>Code Index</h1>
+  <div class="meta">{{ total }} codes from all sources · Generated {{ generated|e }}</div>
+</div>
+
+<div class="controls">
+  <input id="search" type="text" placeholder="Search code..." autocomplete="off" aria-label="Search codes">
+  <div class="chip" id="countChip">{{ total }} items</div>
+</div>
+
+<main>
+  <div class="code-grid" id="grid">
+    {% for code in codes %}
+    <div class="code-chip" onclick="copy('{{ code|e }}')">{{ code|e }}</div>
+    {% endfor %}
+  </div>
+</main>
+
+<footer>Click a code to copy</footer>
+{% endblock %}
+
+{% block body_extra %}
+<script>
+const allCodes = [...document.querySelectorAll('.code-chip')];
+const countChip = document.getElementById('countChip');
+
+document.getElementById('search').addEventListener('input', e => {
+  const q = e.target.value.toLowerCase();
+  let shown = 0;
+  allCodes.forEach(el => {
+    const match = el.textContent.toLowerCase().includes(q);
+    el.style.display = match ? '' : 'none';
+    if (match) shown++;
+  });
+  countChip.textContent = shown + ' items';
+});
+
+function copy(text) {
+  navigator.clipboard.writeText(text).catch(() => {});
+}
+</script>
+{% endblock %}

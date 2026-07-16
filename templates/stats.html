@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+{% block title %}Stats Dashboard · JAV.guru{% endblock %}
+{% block head_extra %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.stat-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+}
+.stat-val {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 4px;
+}
+.stat-lbl {
+  font-size: 13px;
+  color: var(--color-text-dim);
+}
+.chart-box {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow-card);
+}
+</style>
+{% endblock %}
+{% block content %}
+<div class="top-bar">
+  <h1>Stats Dashboard</h1>
+</div>
+
+<div class="kpi-grid" id="kpi"></div>
+
+<div class="chart-box">
+  <canvas id="timelineChart"></canvas>
+</div>
+
+<div class="chart-box" style="max-width:480px;margin:0 auto 24px;">
+  <canvas id="sourceChart"></canvas>
+</div>
+{% endblock %}
+
+{% block body_extra %}
+<script>
+fetch("stats.json")
+  .then(r => r.json())
+  .then(data => {
+    const kpi = document.getElementById('kpi');
+    for (const [src, val] of Object.entries(data.sources)) {
+      kpi.innerHTML += '<div class="stat-card"><div class="stat-val">' + Number(val).toLocaleString() + '</div><div class="stat-lbl">' + escHtml(src) + ' Videos</div></div>';
+    }
+
+    const dates = Object.keys(data.timeline).sort();
+    const counts = dates.map(d => data.timeline[d]);
+    new Chart(document.getElementById('timelineChart'), {
+      type: 'line',
+      data: {
+        labels: dates,
+        datasets: [{
+          label: 'JAV.guru Videos Added',
+          data: counts,
+          borderColor: 'oklch(0.65 0.18 250)',
+          backgroundColor: 'oklch(0.65 0.18 250 / 0.1)',
+          fill: true,
+          tension: 0.4
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: { display: true, text: 'Growth Over Time', color: 'var(--color-text)' }
+        },
+        scales: {
+          x: { ticks: { color: 'var(--color-text-dim)' } },
+          y: { ticks: { color: 'var(--color-text-dim)' } }
+        }
+      }
+    });
+
+    new Chart(document.getElementById('sourceChart'), {
+      type: 'doughnut',
+      data: {
+        labels: Object.keys(data.sources),
+        datasets: [{
+          data: Object.values(data.sources),
+          backgroundColor: [
+            'oklch(0.65 0.18 250)',
+            'oklch(0.65 0.18 300)',
+            'oklch(0.65 0.18 190)',
+            'oklch(0.65 0.18 150)',
+            'oklch(0.65 0.18 340)'
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: { display: true, text: 'Source Breakdown', color: 'var(--color-text)' }
+        }
+      }
+    });
+  });
+</script>
+{% endblock %}

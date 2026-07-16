@@ -1,0 +1,183 @@
+{% extends "base.html" %}
+{% block title %}MissAV · JAV.guru{% endblock %}
+{% block head_extra %}{% endblock %}
+{% block content %}
+<div class="top-bar">
+  <h1><span style="color:var(--color-accent)">MissAV</span> · JAV.guru</h1>
+  <div class="meta" id="stats"></div>
+</div>
+
+<div class="controls">
+  <input id="filter" type="text" placeholder="Search by code..." autocomplete="off" aria-label="Search videos">
+</div>
+
+<div id="loading" class="loading">Loading data...</div>
+<div id="container" class="vgrid"></div>
+{% endblock %}
+
+{% block body_extra %}
+<script>
+let DATA = [];
+
+fetch("missav.json")
+  .then(r => r.json())
+  .then(data => {
+    DATA = data;
+    document.getElementById("loading").style.display = "none";
+    updateStats(data.length);
+    initVirtual();
+  })
+  .catch(() => {
+    document.getElementById("loading").textContent = "Failed to load data.";
+  });
+
+function updateStats(shown) {
+  document.getElementById("stats").innerHTML =
+    `<b>${shown.toLocaleString()}</b> / ${DATA.length.toLocaleString()} videos`;
+}
+
+function initVirtual() {
+  const container = document.getElementById("container");
+  const rowHeight = 360;
+  const buffer = 4;
+  let lastQ = "";
+  let filtered = DATA;
+
+  function refilter() {
+    const q = document.getElementById("filter").value.toLowerCase().trim();
+    if (q !== lastQ) {
+      lastQ = q;
+      filtered = q ? DATA.filter(v => v.code.toLowerCase().includes(q) || (v.tag||'').includes(q)) : DATA;
+      updateStats(filtered.length);
+    }
+    return filtered;
+  }
+
+  function render() {
+    const items = refilter();
+    const scrollTop = window.scrollY;
+    const screenH = window.innerHeight;
+    const cols = getCols();
+    const totalRows = Math.ceil(items.length / cols);
+
+    const startRow = Math.max(0, Math.floor(scrollTop / rowHeight) - buffer);
+    const endRow = Math.min(totalRows, Math.ceil((scrollTop + screenH) / rowHeight) + buffer);
+
+    const si = startRow * cols;
+    const ei = Math.min(items.length, endRow * cols);
+
+    if (activeHls) { activeHls.destroy(); activeHls = null; }
+    closeMini();
+    container.innerHTML = "";
+    if (items.length === 0) {
+      const empty = document.createElement("div");
+      empty.style.cssText = "grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--color-text-dim);font-size:15px;";
+      const q = document.getElementById("filter").value;
+      empty.textContent = q ? 'No results found for "' + q + '"' : "No results found";
+      container.appendChild(empty);
+      return;
+    }
+    for (let i = si; i < ei; i++) {
+      container.appendChild(buildCard(items[i]));
+    }
+
+    container.style.paddingTop  = startRow * rowHeight + "px";
+    container.style.paddingBottom = Math.max(0, totalRows - endRow) * rowHeight + "px";
+  }
+
+  function getCols() {
+    const w = window.innerWidth;
+    if (w >= 1400) return 5;
+    if (w >= 1024) return 4;
+    if (w >= 640)  return 3;
+    return 2;
+  }
+
+  let ticking = false;
+  function onScroll() {
+    if (!ticking) { ticking = true; requestAnimationFrame(() => { render(); ticking = false; }); }
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", render);
+  document.getElementById("filter").oninput = render;
+  render();
+}
+
+function buildCard(v) {
+  const thumb = "https://imgproxy.mrspidyxd.workers.dev/?url=https://fourhoi.com/" + v.code + "/cover-n.jpg";
+  const preview = "https://fourhoi.com/" + v.code + "/preview.mp4";
+
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const thumbDiv = document.createElement("div");
+  thumbDiv.className = "card-thumb";
+  thumbDiv.innerHTML = `<img src="${escHtml(thumb)}" loading="lazy" alt="${escHtml(v.code)}"><div class="play-overlay"><div class="play-icon"></div></div>`;
+
+  const playerDiv = document.createElement("div");
+  playerDiv.className = "card-player";
+  const video = document.createElement("video");
+  video.controls = true;
+  video.playsInline = true;
+  video.preload = "none";
+  playerDiv.appendChild(video);
+
+  const body = document.createElement("div");
+  body.className = "card-body";
+
+  const codeDiv = document.createElement("div");
+  codeDiv.className = "card-code";
+  codeDiv.textContent = v.code.toUpperCase();
+
+  if (v.tag) {
+    const tag = document.createElement("span");
+    tag.className = v.tag === "jav.guru" ? "tag tag-guru" : "tag tag-cat";
+    tag.textContent = v.tag === "jav.guru" ? "JAV.guru" : "Category";
+    codeDiv.appendChild(tag);
+  }
+
+  const pills = document.createElement("div");
+  pills.className = "pills";
+
+  const prevPill = document.createElement("button");
+  prevPill.className = "pill pill-preview";
+  prevPill.textContent = "Preview";
+  prevPill.onclick = () => playSource(card, video, playerDiv, thumbDiv, preview, "direct", prevPill, pills);
+  pills.appendChild(prevPill);
+
+  if (v.entries && v.entries.length) {
+    const order = { "1080p": 0, "720p": 1, "480p": 2, "playlist": 3 };
+    const sorted = [...v.entries].sort((a, b) => (order[a.quality] ?? 4) - (order[b.quality] ?? 4));
+
+    for (const e of sorted) {
+      const pill = document.createElement("button");
+      const qClass = ["1080p","720p","480p","playlist"].includes(e.quality) ? "pill-" + e.quality : "pill-other";
+      pill.className = "pill " + qClass;
+      pill.textContent = e.quality || "stream";
+      pill.title = e.source || "";
+      pill.onclick = () => playSource(card, video, playerDiv, thumbDiv, e.url, "hls", pill, pills);
+      pills.appendChild(pill);
+    }
+  }
+
+  thumbDiv.onclick = () => {
+    if (v.entries && v.entries.length) {
+      const best = v.entries.find(e => e.quality === "1080p")
+                || v.entries.find(e => e.quality === "720p")
+                || v.entries[0];
+      playSource(card, video, playerDiv, thumbDiv, best.url, "hls", null, pills);
+    } else {
+      playSource(card, video, playerDiv, thumbDiv, preview, "direct", null, pills);
+    }
+  };
+
+  body.appendChild(codeDiv);
+  body.appendChild(pills);
+  card.appendChild(thumbDiv);
+  card.appendChild(playerDiv);
+  card.appendChild(body);
+  return card;
+}
+</script>
+{% endblock %}
