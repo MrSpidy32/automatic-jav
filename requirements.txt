@@ -3,3 +3,4 @@ beautifulsoup4
 crawl4ai
 aiohttp
 curl_cffi
+jinja2
