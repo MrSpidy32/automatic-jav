@@ -10,22 +10,35 @@
   /* Hallmark Design Principles */
   --font-sans: "Inter", system-ui, -apple-system, sans-serif;
   
+  --color-bg: #2d2d2d; /* Deep atmospheric dark */
   --color-bg: oklch(0.18 0.02 260); /* Deep atmospheric dark */
+  --color-surface: #3d3d3d; /* Slightly lighter card surface */
   --color-surface: oklch(0.24 0.03 260); /* Slightly lighter card surface */
+  --color-surface-hover: #474747;
   --color-surface-hover: oklch(0.28 0.04 260);
   
+  --color-border: #595959;
   --color-border: oklch(0.35 0.04 260);
+  --color-border-hover: #727272;
   --color-border-hover: oklch(0.45 0.06 260);
   
+  --color-text: #f2f2f2;
   --color-text: oklch(0.95 0.01 260);
+  --color-text-muted: #b2b2b2;
   --color-text-muted: oklch(0.70 0.02 260);
   
+  --color-primary: #a5a5a5; /* Atmospheric blue */
   --color-primary: oklch(0.65 0.15 260); /* Atmospheric blue */
+  --color-primary-hover: #bfbfbf;
   --color-primary-hover: oklch(0.75 0.15 260);
   
+  --color-success: #b2b2b2; /* Green for 1080p */
   --color-success: oklch(0.70 0.14 150); /* Green for 1080p */
+  --color-info: #a5a5a5;    /* Blue for 720p */
   --color-info: oklch(0.65 0.14 240);    /* Blue for 720p */
+  --color-warning: #b2b2b2;  /* Orange for 480p */
   --color-warning: oklch(0.70 0.14 60);  /* Orange for 480p */
+  --color-danger: #999999;   /* Red for playlist */
   --color-danger: oklch(0.60 0.16 20);   /* Red for playlist */
   
   --radius-sm: 8px;
@@ -37,17 +50,33 @@
 }
 
 [data-theme="light"] {
+  --color-bg: #f9f9f9;
   --color-bg: oklch(0.98 0.01 260);
+  --color-surface: #ffffff;
   --color-surface: oklch(1 0 0);
+  --color-surface-hover: #f4f4f4;
   --color-surface-hover: oklch(0.96 0.01 260);
   
+  --color-border: #e5e5e5;
   --color-border: oklch(0.90 0.02 260);
+  --color-border-hover: #cccccc;
   --color-border-hover: oklch(0.80 0.03 260);
   
+  --color-text: #333333;
   --color-text: oklch(0.2 0.02 260);
+  --color-text-muted: #666666;
   --color-text-muted: oklch(0.4 0.02 260);
   
+  --color-primary: #8c8c8c;
   --color-primary: oklch(0.55 0.15 260);
+  --line: rgba(0,0,0,0.1);
+  --green: #16a34a;
+  --blue: #2563eb;
+  --orange: #d97706;
+  --red: #dc2626;
+  --cyan: #0891b2;
+  --pill: #e2e8f0;
+  --pill-hover: #cbd5e1;
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -55,7 +84,9 @@
 body {
   background-color: var(--color-bg);
   background-image: 
+    radial-gradient(circle at 15% 50%, #4c4c4c, transparent 25vw),
     radial-gradient(circle at 15% 50%, oklch(0.3 0.08 260 / 0.15), transparent 25vw),
+    radial-gradient(circle at 85% 30%, #4c4c4c, transparent 25vw),
     radial-gradient(circle at 85% 30%, oklch(0.3 0.08 200 / 0.15), transparent 25vw);
   background-attachment: fixed;
   color: var(--color-text);
@@ -110,6 +141,7 @@ h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
 }
 .controls input:focus { 
   border-color: var(--color-primary); 
+  box-shadow: 0 0 0 3px rgba(136,136,136,0.2);
   box-shadow: 0 0 0 3px oklch(from var(--color-primary) l c h / 0.2);
 }
 .controls .chip {
@@ -166,6 +198,7 @@ h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
 .card:hover {
   transform: translateY(-4px);
   border-color: var(--color-border-hover);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.2);
   box-shadow: 0 12px 32px oklch(0 0 0 / 0.2);
 }
 
@@ -174,6 +207,7 @@ h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
   aspect-ratio: 16/10;
   overflow: hidden;
   cursor: pointer;
+  background: #1a1a1a;
   background: oklch(0.1 0 0);
 }
 .card-thumb img {
@@ -200,9 +234,11 @@ h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
 .card-thumb:hover .play-overlay { opacity: 1; }
 .play-icon {
   width: 56px; height: 56px;
+  background: rgba(136,136,136,0.9);
   background: oklch(from var(--color-primary) l c h / 0.9);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
   box-shadow: 0 4px 16px oklch(0 0 0 / 0.3);
 }
 .play-icon::after {
@@ -259,6 +295,7 @@ h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
   cursor: pointer;
   border: none;
   transition: all var(--transition);
+  color: #ffffff;
   color: oklch(1 0 0);
   background: var(--color-border);
 }
@@ -286,7 +323,9 @@ h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
 }
 .badge-stream {
   color: var(--color-success);
+  border-color: rgba(136,136,136,0.3);
   border-color: oklch(from var(--color-success) l c h / 0.3);
+  background: rgba(136,136,136,0.05);
   background: oklch(from var(--color-success) l c h / 0.05);
 }
 
@@ -306,11 +345,12 @@ h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
 #miniPlayer {
   position: fixed;
   bottom: 24px; right: 24px;
-  width: 360px;
+  width: min(360px, calc(100vw - 48px));
   display: none;
   background: #000;
   border-radius: var(--radius-md);
   overflow: hidden;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.5);
   box-shadow: 0 16px 48px oklch(0 0 0 / 0.5);
   z-index: 1000;
   border: 1px solid var(--color-border);
@@ -318,6 +358,7 @@ h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
 #miniPlayer video { width: 100%; display: block; }
 #miniClose {
   position: absolute; top: 8px; right: 8px;
+  background: rgba(0,0,0,0.6);
   background: oklch(0 0 0 / 0.6);
   backdrop-filter: blur(4px);
   border: none; color: white;
@@ -327,6 +368,7 @@ h1 { font-size: 24px; font-weight: 600; letter-spacing: -0.02em; }
   display: flex; align-items: center; justify-content: center;
   transition: background var(--transition);
 }
+#miniClose:hover { background: rgba(0,0,0,0.8); }
 #miniClose:hover { background: oklch(0 0 0 / 0.8); }
 
 footer {
@@ -356,7 +398,7 @@ footer {
 </div>
 
 <div class="controls">
-  <input id="q" type="text" placeholder="Filter by URL or code..." autocomplete="off">
+  <input id="q" type="text" placeholder="Filter by URL or code..." autocomplete="off" aria-label="Search videos">
   <div class="chip" id="statusChip">0 items</div>
 </div>
 
@@ -366,7 +408,7 @@ footer {
   <button id="nextBtn">Next</button>
 </div>
 
-<div class="grid" id="grid"></div>
+<main><div class="grid" id="grid"></div></main>
 
 <div class="pager">
   <button id="prevBtn2">Prev</button>
@@ -378,7 +420,7 @@ footer {
 </div>
 
 <div id="miniPlayer">
-  <button id="miniClose">&times;</button>
+  <button id="miniClose" aria-label="Close mini player">&times;</button>
   <video controls></video>
 </div>
 
@@ -442,6 +484,13 @@ function render() {
   nextBtn2.disabled = page >= tp;
 
   grid.innerHTML = '';
+  if (filtered.length === 0) {
+    const empty = document.createElement('div');
+    empty.style.cssText = 'grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--color-text-muted);font-size:15px;';
+    empty.textContent = q.value ? 'No results found for "' + q.value + '"' : 'No results found';
+    grid.appendChild(empty);
+    return;
+  }
   chunk.forEach(it => grid.appendChild(buildCard(it)));
 }
 
@@ -461,6 +510,7 @@ function buildCard(it) {
   // Thumbnail
   const thumbDiv = document.createElement('div');
   thumbDiv.className = 'card-thumb';
+  thumbDiv.tabIndex = 0;
   if (imgUrl) {
     thumbDiv.innerHTML = `<img src="${escHtml(IMAGE_PROXY + encodeURIComponent(imgUrl))}" loading="lazy" alt="${escHtml(code)}" onerror="this.outerHTML='<div class=ph></div>'"><div class="play-overlay"><div class="play-icon"></div></div>`;
   } else {
@@ -529,7 +579,7 @@ function buildCard(it) {
     thumbDiv.onclick = () => window.open(pageUrl, '_blank');
     thumbDiv.title = 'Open source page';
   }
-
+  thumbDiv.onkeydown = (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); thumbDiv.click(); } };
   // URL display
   const urlDiv = document.createElement('div');
   urlDiv.className = 'card-url';
@@ -695,9 +745,10 @@ nextBtn.addEventListener('click', () => { page++; render(); });
 prevBtn2.addEventListener('click', () => { page--; render(); });
 nextBtn2.addEventListener('click', () => { page++; render(); });
 
+let __t;
 q.addEventListener('input', () => {
-  window.clearTimeout(window.__t);
-  window.__t = window.setTimeout(applyFilter, 150);
+  window.clearTimeout(__t);
+  __t = window.setTimeout(applyFilter, 150);
 });
 
 render();
@@ -708,7 +759,8 @@ render();
     const toggle = document.createElement('button');
     toggle.innerHTML = '🌓';
     toggle.title = 'Toggle Theme';
-    toggle.style.cssText = 'position:fixed;bottom:24px;left:24px;z-index:9999;background:var(--color-surface);border:1px solid var(--color-border);color:var(--color-text);padding:12px;border-radius:50%;cursor:pointer;box-shadow:0 8px 24px oklch(0 0 0 / 0.2);display:flex;align-items:center;justify-content:center;font-size:20px;transition:transform var(--transition);';
+    toggle.setAttribute('aria-label', 'Toggle theme');
+    toggle.style.cssText = 'position:fixed;bottom:24px;left:24px;z-index:9999;background:var(--color-surface);border:1px solid var(--color-border);color:var(--color-text);padding:12px;border-radius:50%;cursor:pointer;box-shadow:0 8px 24px rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:center;font-size:20px;transition:transform var(--transition);';
     toggle.onmouseover = () => toggle.style.transform = 'scale(1.1)';
     toggle.onmouseout = () => toggle.style.transform = 'scale(1)';
     toggle.onclick = () => {

@@ -27,6 +27,8 @@ def load_data():
     if os.path.exists(comb_path):
         with open(comb_path, newline="", encoding="utf-8") as f:
             reader = csv.DictReader(f)
+            if not reader.fieldnames:
+                return stats
             has_date = "date_added" in reader.fieldnames
             has_src = "source_file" in reader.fieldnames
             count = 0
@@ -68,7 +70,7 @@ def load_data():
     codes_path = os.path.join(DOCS_DIR, "codes.txt")
     if os.path.exists(codes_path):
         with open(codes_path, encoding="utf-8") as f:
-            stats["total_codes"] = len(f.read().splitlines())
+            stats["total_codes"] = len([l for l in f.read().splitlines() if l.strip()])
 
     return stats
 
@@ -87,6 +89,13 @@ HTML = """<!DOCTYPE html>
 [data-theme="light"] {
   --bg: #f8fafc; --card: #ffffff; --line: rgba(0,0,0,.1);
   --text: #0f172a; --muted: #64748b;
+  --green: #16a34a;
+  --blue: #2563eb;
+  --orange: #d97706;
+  --red: #dc2626;
+  --cyan: #0891b2;
+  --pill: #e2e8f0;
+  --pill-hover: #cbd5e1;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
@@ -116,10 +125,16 @@ h1 { margin-bottom: 24px; }
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" role="main">
   <nav>
     <a href="index.html">⬅ Index</a>
     <a href="home.html">🏠 JAV.guru</a>
+    <a href="missav.html">🎬 MissAV</a>
+    <a href="onejav.html">🧲 OneJAV</a>
+    <a href="javct.html">🌟 JavCT</a>
+    <a href="models.html">Models</a>
+    <a href="codes.html">🏷️ Codes</a>
+    <a href="sitemap.html">🗺️ Sitemap</a>
   </nav>
 
   <h1>📊 Stats Dashboard</h1>
@@ -136,6 +151,15 @@ h1 { margin-bottom: 24px; }
 </div>
 
 <script>
+function escHtml(s) {
+  return String(s)
+    .replaceAll('&','&amp;')
+    .replaceAll('<','&lt;')
+    .replaceAll('>','&gt;')
+    .replaceAll('"','&quot;')
+    .replaceAll("'",'&#39;');
+}
+
 fetch("stats.json")
   .then(r => r.json())
   .then(data => {
@@ -143,8 +167,8 @@ fetch("stats.json")
     const kpi = document.getElementById('kpi');
     for (const [src, val] of Object.entries(data.sources)) {
       kpi.innerHTML += `<div class="stat-card">
-        <div class="stat-val">${val.toLocaleString()}</div>
-        <div class="stat-lbl">${src} Videos</div>
+        <div class="stat-val">${escHtml(val.toLocaleString())}</div>
+        <div class="stat-lbl">${escHtml(src)} Videos</div>
       </div>`;
     }
 

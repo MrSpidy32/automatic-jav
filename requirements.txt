@@ -2,5 +2,5 @@ cloudscraper
 beautifulsoup4
 crawl4ai
 aiohttp
-curl_cffi
+lxml
 jinja2

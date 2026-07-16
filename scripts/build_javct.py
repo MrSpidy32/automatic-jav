@@ -44,6 +44,11 @@ HTML = """\
   --line:rgba(0,0,0,0.1);
   --pill:#e2e8f0;
   --pill-hover:#cbd5e1;
+  --green: #16a34a;
+  --blue: #2563eb;
+  --orange: #d97706;
+  --red: #dc2626;
+  --cyan: #0891b2;
 }
 * { box-sizing: border-box; }
 
@@ -287,6 +292,26 @@ body {
 }
 
 @keyframes spin { to { transform: rotate(360deg); } }
+
+nav {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  align-items: center; margin-bottom: 24px;
+}
+nav a {
+  color: var(--text-dim);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: var(--card);
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+nav a:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
 </style>
 </head>
 
@@ -296,13 +321,24 @@ body {
   <div class="header-inner">
     <h1><span>JavCT</span> · JAV.guru</h1>
     <div class="search-box">
-      <input id="filter" placeholder="Search by code, title..." autocomplete="off">
+      <input id="filter" placeholder="Search by code, title..." autocomplete="off" aria-label="Search videos">
     </div>
     <div class="stats" id="stats"></div>
   </div>
 </div>
 
-<div class="main">
+<div class="main" role="main">
+  <nav>
+    <a href="index.html">Index</a>
+    <a href="home.html">Home</a>
+    <a href="codes.html">Codes</a>
+    <a href="sitemap.html">Sitemap</a>
+    <a href="missav.html">MissAV</a>
+    <a href="onejav.html">OneJAV</a>
+    <a href="javct.html">JavCT</a>
+    <a href="models.html">Models</a>
+    <a href="stats.html">Stats</a>
+  </nav>
   <div id="loading" class="loading">Loading data...</div>
   <div id="container"></div>
 </div>
@@ -363,6 +399,14 @@ function initVirtual() {
     const ei = Math.min(items.length, endRow * cols);
 
     container.innerHTML = "";
+    if (items.length === 0) {
+      const empty = document.createElement("div");
+      empty.style.cssText = "grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--text-dim);font-size:15px;";
+      const q = document.getElementById("filter").value;
+      empty.textContent = q ? "No results found for \"" + q + "\"" : "No results found";
+      container.appendChild(empty);
+      return;
+    }
     for (let i = si; i < ei; i++) {
       container.appendChild(buildCard(items[i]));
     }
@@ -470,6 +514,7 @@ function buildCard(v) {
     const toggle = document.createElement('button');
     toggle.innerHTML = '🌓';
     toggle.title = 'Toggle Theme';
+    toggle.setAttribute('aria-label', 'Toggle theme');
     toggle.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;background:var(--card, #fff);border:1px solid var(--border, #ccc);color:var(--text, #000);padding:10px;border-radius:50%;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;';
     toggle.onclick = () => {
       const isLight = document.body.getAttribute('data-theme') === 'light';

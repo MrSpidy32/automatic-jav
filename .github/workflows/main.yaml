@@ -42,6 +42,7 @@ jobs:
       # RUN MISSAV PIPELINE (override CMD)
       # -------------------------
       - name: Run MissAV pipeline
+        continue-on-error: true
         run: |
           docker run --rm \
             -v "${GITHUB_WORKSPACE}/docs:/app/docs" \
@@ -53,6 +54,7 @@ jobs:
       # RUN ONEJAV PIPELINE (override CMD)
       # -------------------------
       - name: Run OneJAV pipeline
+        continue-on-error: true
         run: |
           docker run --rm \
             -v "${GITHUB_WORKSPACE}/docs:/app/docs" \
@@ -64,6 +66,7 @@ jobs:
       # RUN JAVCT PIPELINE (override CMD)
       # -------------------------
       - name: Run JavCT pipeline
+        continue-on-error: true
         run: |
           docker run --rm \
             -v "${GITHUB_WORKSPACE}/docs:/app/docs" \
@@ -75,6 +78,7 @@ jobs:
       # RUN AGGREGATOR PIPELINE (override CMD)
       # -------------------------
       - name: Run Aggregator pipeline
+        continue-on-error: true
         run: |
           docker run --rm \
             -v "${GITHUB_WORKSPACE}/docs:/app/docs" \
@@ -109,15 +113,3 @@ jobs:
             git push origin main
             echo "✅ Data committed"
           fi
-
-      # -------------------------
-      # 🚀 PUBLISH TO GITHUB PAGES
-      # -------------------------
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs
-          user_name: "github-actions[bot]"
-          user_email: "41898282+github-actions[bot]@users.noreply.github.com"
-          keep_files: false

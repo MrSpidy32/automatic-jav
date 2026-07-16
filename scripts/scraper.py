@@ -25,7 +25,6 @@ RETRIES = 3
 TIMEOUT = 30
 
 OUT_DIR = "results/raw"
-os.makedirs(OUT_DIR, exist_ok=True)
 
 HEADERS = {
     "User-Agent": (
@@ -42,7 +41,7 @@ POST_PATTERN = re.compile(r"^https?://jav\.guru/\d+/.+")
 # ==========================================
 
 results: Set[Tuple[str, str]] = set()
-results_lock = asyncio.Lock()
+results_lock: Optional[asyncio.Lock] = None
 
 # ================= CF BOOTSTRAP =================
 
@@ -115,9 +114,6 @@ async def fetch_with_retries(
 
         await asyncio.sleep(min(4, 0.6 * (2 ** attempt)) * random.uniform(0.8, 1.2))
 
-    return None
-
-
 # ================= PARSING (OLD LOGIC) =================
 
 def extract_links(html: str) -> Set[Tuple[str, str]]:
@@ -161,6 +157,10 @@ async def process_page(
 # ================= MAIN =================
 
 async def main():
+    global results_lock
+    results_lock = asyncio.Lock()
+    os.makedirs(OUT_DIR, exist_ok=True)
+    
     # Step 1 — pass CF once
     cookies = await get_cf_cookies(BASE_URL.format(1))
 
