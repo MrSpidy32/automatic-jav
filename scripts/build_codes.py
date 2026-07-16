@@ -101,6 +101,14 @@ def build_html(codes):
   --muted:#93a4b8;
   --accent:#60a5fa;
 }}
+[data-theme="light"] {{
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --line:rgba(0,0,0,0.1);
+  --text:#0f172a;
+  --muted:#64748b;
+  --accent:#3b82f6;
+}}
 * {{ box-sizing:border-box; }}
 body {{
   margin:0;
@@ -177,7 +185,7 @@ footer {{
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" role="main">
 
 <header>
   <h1>📚 Code Index</h1>
@@ -185,7 +193,7 @@ footer {{
 </header>
 
 <div class="controls">
-  <input id="search" type="text" placeholder="Search code..." />
+  <input id="search" type="text" placeholder="Search code..." aria-label="Search codes" />
 </div>
 
 <div class="grid" id="grid">
@@ -217,6 +225,7 @@ function copy(text) {{
     const toggle = document.createElement('button');
     toggle.innerHTML = '🌓';
     toggle.title = 'Toggle Theme';
+    toggle.setAttribute('aria-label', 'Toggle theme');
     toggle.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;background:var(--card, #fff);border:1px solid var(--border, #ccc);color:var(--text, #000);padding:10px;border-radius:50%;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;';
     toggle.onclick = () => {{
       const isLight = document.body.getAttribute('data-theme') === 'light';

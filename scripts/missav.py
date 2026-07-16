@@ -9,6 +9,7 @@ import json
 from dataclasses import dataclass
 from typing import List, Optional
 from datetime import datetime
+import aiohttp
 
 # =========================
 # CONFIGURATION
@@ -95,8 +96,6 @@ def build_guru_code_urls() -> List[str]:
 # HTTP FETCHER
 # =========================
 
-import aiohttp
-
 @dataclass
 class Fetcher:
     session: Optional[aiohttp.ClientSession] = None
@@ -125,9 +124,14 @@ class Fetcher:
 # =========================
 
 def unquote_js_string(s: str) -> str:
+    if not s:
+        return s
     if len(s) >= 2 and s[0] in ("'", '"') and s[-1] == s[0]:
         s = s[1:-1]
-    return s.encode("utf-8").decode("unicode_escape")
+    try:
+        return s.encode("utf-8").decode("unicode_escape")
+    except (UnicodeDecodeError, UnicodeEncodeError):
+        return s
 
 
 def int_to_base(n: int, base: int) -> str:
@@ -146,7 +150,7 @@ def decode_packed_eval(payload: str) -> Optional[str]:
     if start == -1:
         return None
 
-    chunk = payload[start:start + 20000]
+    chunk = payload[start:start + 500000]
     idx = chunk.find("}(")
     if idx == -1:
         return None
@@ -197,7 +201,10 @@ def decode_packed_eval(payload: str) -> Optional[str]:
         return None
 
     p = unquote_js_string(parts[0])
-    a, c = int(parts[1]), int(parts[2])
+    try:
+        a, c = int(parts[1]), int(parts[2])
+    except ValueError:
+        return None
     k = unquote_js_string(parts[3].split(".split")[0]).split("|")
 
     for n in range(c - 1, -1, -1):
@@ -282,7 +289,7 @@ async def collect_posts_for_category(
     posts = set()
     for r in results:
         if not r:
-            break
+            continue
         posts.update(r)
 
     print(f"[category] {start_url} → {len(posts)} posts")
@@ -345,7 +352,11 @@ def merge_daily_csvs():
 
         with open(os.path.join(RAW_DIR, file), newline="", encoding="utf-8") as f:
             for r in csv.DictReader(f):
-                key = (r["page_url"], r["playlist_url"])
+                page_url = r.get("page_url", "")
+                playlist_url = r.get("playlist_url", "")
+                if not page_url or not playlist_url:
+                    continue
+                key = (page_url, playlist_url)
                 if key in seen:
                     continue
                 seen.add(key)

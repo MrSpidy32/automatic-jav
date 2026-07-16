@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import csv
+import json
 import re
 from datetime import datetime
 from html import escape
@@ -94,7 +95,6 @@ def build_sitemap():
     sitemap_json = os.path.join(DOCS_DIR, "sitemap.json")
     sitemap_csv = os.path.join(DOCS_DIR, "sitemap_export.csv")
     
-    import json
     with open(sitemap_json, "w", encoding="utf-8") as f:
         json.dump(rows, f, indent=2)
         
@@ -107,6 +107,8 @@ def build_sitemap():
 
     items = []
     for r in rows:
+        if r['page_url'].lower().startswith(('javascript:', 'data:')):
+            continue
         d = r["date_added"] or "—"
         host = r["host"] or "link"
         items.append(
@@ -127,6 +129,14 @@ def build_sitemap():
 :root {{
   --bg:#0b0f17; --card:#111827; --line:rgba(255,255,255,.10);
   --text:#e5eefc; --muted:#93a4b8; --accent:#60a5fa;
+}}
+[data-theme="light"] {{
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --line:rgba(0,0,0,0.1);
+  --text:#0f172a;
+  --muted:#64748b;
+  --accent:#3b82f6;
 }}
 * {{ box-sizing:border-box; }}
 body {{
@@ -251,7 +261,7 @@ li:last-child {{ border-bottom:none; }}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="wrap" role="main">
 
 <nav>
   <a href="index.html">⬅ Index</a>
@@ -269,7 +279,7 @@ li:last-child {{ border-bottom:none; }}
 
 <div class="card">
   <div class="controls">
-    <input id="q" type="text" placeholder="Filter links..." autocomplete="off">
+    <input id="q" type="text" placeholder="Filter links..." autocomplete="off" aria-label="Search links">
     <div class="chip" id="count">{len(rows)} items</div>
     <div style="flex:1"></div>
     <a href="sitemap_export.csv" download class="chip" style="color:var(--accent);border-color:var(--accent);text-decoration:none;">Download CSV</a>
@@ -307,6 +317,7 @@ q.addEventListener('input', () => {{
     const toggle = document.createElement('button');
     toggle.innerHTML = '🌓';
     toggle.title = 'Toggle Theme';
+    toggle.setAttribute('aria-label', 'Toggle theme');
     toggle.style.cssText = 'position:fixed;bottom:20px;right:20px;z-index:9999;background:var(--card, #fff);border:1px solid var(--border, #ccc);color:var(--text, #000);padding:10px;border-radius:50%;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:center;font-size:22px;';
     toggle.onclick = () => {{
       const isLight = document.body.getAttribute('data-theme') === 'light';

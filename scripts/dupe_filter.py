@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import os
 import csv
-from datetime import datetime
+from datetime import datetime, timezone
 from urllib.parse import urlsplit, urlunsplit, parse_qsl, urlencode
 
 RAW_RESULTS_DIR = "results/raw"
@@ -123,6 +123,7 @@ def merge_csvs():
     # Write output (newest first)
     items = sorted(seen.items(), key=lambda kv: kv[1][0], reverse=True)
 
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     with open(OUTPUT_FILE, "w", newline="", encoding="utf-8") as out:
         writer = csv.DictWriter(out, fieldnames=out_columns)
         writer.writeheader()
@@ -131,7 +132,7 @@ def merge_csvs():
             out_row = {col: row.get(col, "") for col in all_columns}
             out_row["normalized_page_url"] = norm_page
             out_row["source_file"] = fname
-            out_row["source_file_mtime"] = datetime.fromtimestamp(mtime).strftime("%Y-%m-%d %H:%M:%S")
+            out_row["source_file_mtime"] = datetime.fromtimestamp(mtime, tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
             writer.writerow(out_row)
 
     print("✅ Merge complete")

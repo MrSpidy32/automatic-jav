@@ -57,10 +57,10 @@ else
   exit 1
 fi
 
-# Sanity check: combined.csv should exist now
-if [[ ! -f "$PROCESSED_DIR/combined.csv" ]]; then
-  echo "❌ Expected combined file not found: $PROCESSED_DIR/combined.csv"
-  echo "   Your build_index.py should write to results/processed/combined.csv"
+# Sanity check: docs/home.html should exist now
+if [[ ! -f "$DOCS_DIR/home.html" ]]; then
+  echo "❌ Expected home file not found: $DOCS_DIR/home.html"
+  echo "   Your build_index.py should write to docs/home.html"
   exit 1
 fi
 

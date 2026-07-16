@@ -4,7 +4,6 @@ import csv
 import re
 import json
 from datetime import datetime
-from html import escape
 from jinja2 import Environment, FileSystemLoader
 
 COMBINED_FILE = os.path.join("results", "processed", "combined.csv")

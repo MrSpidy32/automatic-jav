@@ -3,7 +3,11 @@ import os
 from datetime import datetime
 
 DOCS_DIR = "docs"
-BASE_URL = "https://guiltjay.github.io/automatic-jav"  # Change if hosted elsewhere
+if "GITHUB_REPOSITORY" in os.environ:
+    _, repo = os.environ["GITHUB_REPOSITORY"].split("/")
+    BASE_URL = f"https://{owner}.github.io/{repo}"
+else:
+    BASE_URL = "https://guiltjay.github.io/automatic-jav"
 
 PAGES = [
     "index.html",

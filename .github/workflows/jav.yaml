@@ -35,9 +35,8 @@ jobs:
       # -------------------------
       - name: Copy output from container
         run: |
-          rm -rf docs results
-          docker cp javguru-run:/app/docs ./docs
-          docker cp javguru-run:/app/results ./results
+          docker cp javguru-run:/app/docs ./docs || true
+          docker cp javguru-run:/app/results ./results || true
 
       - name: Cleanup container
         if: always()

@@ -5,6 +5,7 @@ import csv
 import json
 import os
 import random
+import time
 from bs4 import BeautifulSoup
 from dataclasses import dataclass, asdict
 from datetime import datetime, timezone
@@ -264,6 +265,8 @@ def save_items(folder: str, filename: str, items: list, is_model: bool = False):
     out_dir.mkdir(parents=True, exist_ok=True)
 
     safe_name = "".join([c for c in filename if c.isalpha() or c.isdigit() or c in (' ', '-', '_')]).rstrip()
+    if not safe_name:
+        safe_name = "unnamed_" + str(int(time.time()))
     csv_path = out_dir / f"{safe_name}.csv"
 
     fields = MODEL_FIELDS if is_model else VIDEO_FIELDS
@@ -357,7 +360,7 @@ def merge_csvs():
     v_seen = set()
     v_rows = []
     for f in RAW_DIR.rglob("*.csv"):
-        if "models" in f.parts:
+        if f.parent.name == "models":
             continue
         with f.open(newline="", encoding="utf-8") as file:
             for r in csv.DictReader(file):
