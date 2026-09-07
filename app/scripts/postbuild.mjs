@@ -21,7 +21,25 @@ routes.forEach((route) => {
   }
 });
 
-// 2. Clean temporary duplicate data files from app/public
+// 2. Restore data files to docs/ (Astro build cleans outDir, so re-copy from app/public)
+const dataExtensions = ['.json', '.csv', '.txt', '.xml'];
+if (fs.existsSync(publicDir)) {
+  const files = fs.readdirSync(publicDir);
+  files.forEach((file) => {
+    if (file === 'favicon.svg') return;
+    const ext = path.extname(file);
+    if (dataExtensions.includes(ext)) {
+      try {
+        fs.copyFileSync(path.join(publicDir, file), path.join(docsDir, file));
+        console.log(`✓ Restored data file to docs/: ${file}`);
+      } catch (e) {
+        // ignore
+      }
+    }
+  });
+}
+
+// 3. Clean temporary duplicate data files from app/public
 const cleanExtensions = ['.json', '.csv', '.txt', '.xml', '.js'];
 if (fs.existsSync(publicDir)) {
   const files = fs.readdirSync(publicDir);
