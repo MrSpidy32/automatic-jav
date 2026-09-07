@@ -51,7 +51,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 
   <script is:inline>
     (function() {
-      const BASE_URL = document.querySelector('link[rel="icon"]')?.href?.replace(/favicon\.svg$/, '') || '/';
+      // Resolve feeds relative to the current page so both the repository root
+      // test server and the GitHub Pages /automatic-jav/ base path work.
+      const BASE_URL = new URL('../', window.location.href).href;
       const ITEMS_PER_PAGE = 36;
 
       let MODELS = [];

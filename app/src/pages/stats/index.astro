@@ -101,7 +101,7 @@ const totalIndexed = Object.values(stats.sources).reduce((a, b) => a + b, 0);
 
   <script is:inline>
     (function() {
-      const BASE_URL = document.querySelector('link[rel="icon"]')?.href?.replace(/favicon\.svg$/, '') || '/';
+      const BASE_URL = new URL('../', window.location.href).href;
       const chart = document.getElementById('timeline-bars');
       const chartDays = document.getElementById('chart-total-days');
 

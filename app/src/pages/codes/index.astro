@@ -68,7 +68,7 @@ const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL :
 
   <script is:inline>
     (function() {
-      const BASE_URL = document.querySelector('link[rel="icon"]')?.href?.replace(/favicon\.svg$/, '') || '/';
+      const BASE_URL = new URL('../', window.location.href).href;
       const grid = document.getElementById('codes-grid');
       const search = document.getElementById('code-search');
       const counter = document.getElementById('codes-counter');
