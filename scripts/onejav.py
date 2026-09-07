@@ -24,7 +24,7 @@ from crawl4ai import AsyncWebCrawler
 BASE_URL = "https://onejav.com"
 DAYS_TO_SCRAPE = 20
 MAX_RETRIES = 5
-MAX_CONCURRENCY = 4
+MAX_CONCURRENCY = 8
 
 TIMEOUT = 30
 
@@ -463,9 +463,10 @@ async def main():
 
     timeout = aiohttp.ClientTimeout(total=TIMEOUT)
     connector = aiohttp.TCPConnector(
-        limit=40,
-        limit_per_host=10,
+        limit=60,
+        limit_per_host=15,
         ttl_dns_cache=300,
+        enable_cleanup_closed=True,
     )
     sem = asyncio.Semaphore(MAX_CONCURRENCY)
 

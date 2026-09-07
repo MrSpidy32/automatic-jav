@@ -21,7 +21,7 @@ from crawl4ai import AsyncWebCrawler
 
 BASE_URL = "https://javct.net"
 MAX_RETRIES = 5
-MAX_CONCURRENCY = 6
+MAX_CONCURRENCY = 10
 MAX_CATEGORIES = 50
 TIMEOUT = 30
 

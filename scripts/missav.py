@@ -48,9 +48,10 @@ CATEGORIES = [
 
     
 
-MAX_PAGES = 300             # pagination depth per category
-PAGE_CONCURRENCY = 12       # concurrent listing pages
-POST_CONCURRENCY = 20      # concurrent post pages
+MAX_PAGES = 100             # pagination depth per category (reduced from 300 — most content in first 50-100 pages)
+PAGE_CONCURRENCY = 20       # concurrent listing pages (increased from 12)
+POST_CONCURRENCY = 30       # concurrent post pages (increased from 20)
+EMPTY_PAGE_THRESHOLD = 5    # stop early if this many consecutive pages return no results
 
 RAW_DIR = "results/raw_missav"
 MASTER_CSV = "results/processed/missav.csv"
@@ -291,14 +292,29 @@ async def collect_posts_for_category(
             if "/en/" in a["href"]
         }
 
-    tasks = [fetch_page(p) for p in range(1, MAX_PAGES + 1)]
-    results = await asyncio.gather(*tasks)
-
     posts = set()
-    for r in results:
-        if not r:
-            continue
-        posts.update(r)
+    consecutive_empty = 0
+
+    # Fetch in batches to enable early exit
+    batch_size = PAGE_CONCURRENCY
+    for batch_start in range(1, MAX_PAGES + 1, batch_size):
+        batch_end = min(batch_start + batch_size, MAX_PAGES + 1)
+        tasks = [fetch_page(p) for p in range(batch_start, batch_end)]
+        results = await asyncio.gather(*tasks)
+
+        batch_empty = 0
+        for r in results:
+            if not r:
+                batch_empty += 1
+            else:
+                posts.update(r)
+                consecutive_empty = 0
+
+        # If entire batch was empty, we've likely exhausted the category
+        if batch_empty == len(results):
+            consecutive_empty += 1
+            if consecutive_empty >= 2:  # 2 consecutive empty batches = stop
+                break
 
     print(f"[category] {start_url} → {len(posts)} posts")
     return posts
