@@ -1,0 +1,715 @@
+<!DOCTYPE html><html lang="en" data-astro-cid-z4jru4n3><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Browse Archive Catalogue · JAV.guru</title><meta name="description" content="Archival catalogue and cross-referenced media index for JAV.guru, MissAV, OneJAV, and JavCT records."><link rel="icon" type="image/svg+xml" href="/automatic-jav/favicon.svg"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/automatic-jav/_astro/BaseLayout.CXbQMPeB.css"></head><body data-base="/automatic-jav/" class="bg-[var(--bg-shell)] text-[var(--text-bright)] flex flex-col min-h-screen selection:bg-[var(--accent-cyan)] selection:text-black" data-astro-cid-z4jru4n3><!-- Accessibility Skip link --><a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50 focus:px-4 focus:py-2 focus:bg-[var(--accent-cyan)] focus:text-black font-semibold rounded" data-astro-cid-z4jru4n3>Skip to main content</a><!-- Top Console Header --><header class="border-b border-[var(--border-rule)] bg-[var(--bg-panel)] sticky top-0 z-40" data-astro-cid-z4jru4n3><div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-14" data-astro-cid-z4jru4n3><!-- Brand & Status --><div class="flex items-center gap-3" data-astro-cid-z4jru4n3><a href="/automatic-jav/" class="flex items-center gap-2 group text-inherit no-underline" data-astro-cid-z4jru4n3><span class="w-2.5 h-2.5 rounded-full bg-[var(--accent-cyan)] animate-pulse" title="System Operational" data-astro-cid-z4jru4n3></span><span class="font-display font-bold tracking-tight text-lg text-[var(--text-bright)] group-hover:text-[var(--text-cyan)] transition-colors" data-astro-cid-z4jru4n3>JAV.GURU <span class="text-[var(--text-dim)] font-normal text-xs ml-1 font-mono uppercase tracking-widest border border-[var(--border-rule)] px-1.5 py-0.5 rounded" data-astro-cid-z4jru4n3>ARCHIVE</span></span></a></div><!-- Navigation Tabs --><nav class="hidden md:flex items-center gap-1 font-mono text-xs" data-astro-cid-z4jru4n3><a href="/automatic-jav/" class="px-3 py-1.5 rounded transition-all no-underline text-[var(--text-dim)] hover:text-[var(--text-bright)] hover:bg-[var(--bg-panel-hover)]" data-astro-cid-z4jru4n3>Overview</a><a href="/automatic-jav/browse.html" class="px-3 py-1.5 rounded transition-all no-underline bg-[var(--bg-panel-elevated)] text-[var(--text-cyan)] font-semibold border border-[var(--border-rule)]" data-astro-cid-z4jru4n3>Browse</a><a href="/automatic-jav/codes.html" class="px-3 py-1.5 rounded transition-all no-underline text-[var(--text-dim)] hover:text-[var(--text-bright)] hover:bg-[var(--bg-panel-hover)]" data-astro-cid-z4jru4n3>Codes</a><a href="/automatic-jav/models.html" class="px-3 py-1.5 rounded transition-all no-underline text-[var(--text-dim)] hover:text-[var(--text-bright)] hover:bg-[var(--bg-panel-hover)]" data-astro-cid-z4jru4n3>Models</a><a href="/automatic-jav/stats.html" class="px-3 py-1.5 rounded transition-all no-underline text-[var(--text-dim)] hover:text-[var(--text-bright)] hover:bg-[var(--bg-panel-hover)]" data-astro-cid-z4jru4n3>Statistics</a><a href="/automatic-jav/sitemap.html" class="px-3 py-1.5 rounded transition-all no-underline text-[var(--text-dim)] hover:text-[var(--text-bright)] hover:bg-[var(--bg-panel-hover)]" data-astro-cid-z4jru4n3>Sitemap</a></nav><!-- Action Controls: Command Palette & Theme --><div class="flex items-center gap-2" data-astro-cid-z4jru4n3><button type="button" id="cmd-palette-btn" class="hidden sm:inline-flex items-center gap-2 px-2.5 py-1 text-xs font-mono bg-[var(--bg-panel-elevated)] hover:bg-[var(--bg-panel-hover)] border border-[var(--border-rule)] text-[var(--text-dim)] rounded cursor-pointer transition-colors" title="Open Command Palette (Cmd+K)" data-astro-cid-z4jru4n3><span data-astro-cid-z4jru4n3>Find</span><kbd class="bg-[var(--bg-shell)] px-1.5 py-0.5 rounded text-[10px] text-[var(--text-bright)] border border-[var(--border-rule)]" data-astro-cid-z4jru4n3>⌘K</kbd></button><button type="button" id="theme-toggle-btn" class="w-8 h-8 flex items-center justify-center rounded bg-[var(--bg-panel-elevated)] hover:bg-[var(--bg-panel-hover)] border border-[var(--border-rule)] text-[var(--text-dim)] hover:text-[var(--text-bright)] text-sm cursor-pointer" aria-label="Toggle visual theme" data-astro-cid-z4jru4n3>◐</button></div></div></header><!-- Persistent Archive Rail (Context bar) --><aside class="border-b border-[var(--border-rule)] bg-[var(--bg-shell)] py-2 text-xs font-mono text-[var(--text-dim)]" data-astro-cid-z4jru4n3><div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-wrap items-center justify-between gap-3" data-astro-cid-z4jru4n3><div class="flex items-center gap-4" data-astro-cid-z4jru4n3><div class="flex items-center gap-1.5" data-astro-cid-z4jru4n3><span class="text-[var(--text-muted)]" data-astro-cid-z4jru4n3>SCOPE:</span><span class="text-[var(--text-bright)] font-semibold" data-astro-cid-z4jru4n3>Unified Catalogue</span></div><div class="hidden sm:flex items-center gap-1.5 border-l border-[var(--border-rule)] pl-4" data-astro-cid-z4jru4n3><span class="text-[var(--text-muted)]" data-astro-cid-z4jru4n3>RECORDS:</span><span class="text-[var(--text-cyan)] tabular-nums" data-astro-cid-z4jru4n3>Dynamic</span></div></div><div class="flex items-center gap-4 text-[11px]" data-astro-cid-z4jru4n3><div class="flex items-center gap-1.5" data-astro-cid-z4jru4n3><span class="text-[var(--text-muted)]" data-astro-cid-z4jru4n3>PIPELINE:</span><span class="text-[var(--accent-green)] flex items-center gap-1" data-astro-cid-z4jru4n3><span class="w-1.5 h-1.5 rounded-full bg-[var(--accent-green)]" data-astro-cid-z4jru4n3></span>ACTIVE (UTC 2026-09-07)</span></div></div></div></aside><!-- Main Content Slot --><main id="main-content" class="flex-1 max-w-7xl mx-auto px-4 sm:px-6 py-6 w-full" data-astro-cid-z4jru4n3><div class="space-y-6"><!-- Top Filter & Search Bar --><div class="bg-[var(--bg-panel)] border border-[var(--border-rule)] p-4 rounded-lg space-y-4 font-mono"><div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3"><!-- Search input --><div class="relative flex-1"><span class="absolute left-3 top-2.5 text-[var(--text-muted)] text-xs">🔍</span><input type="search" id="search-input" placeholder="Search by code (e.g. DLDSS-436), actress, title, or tag..." class="w-full bg-[var(--bg-shell)] border border-[var(--border-rule)] focus:border-[var(--accent-cyan)] px-8 py-2 rounded text-xs text-[var(--text-bright)] placeholder:text-[var(--text-muted)] focus:outline-none" autocomplete="off"><button id="clear-search" type="button" class="hidden absolute right-2.5 top-2 text-[var(--text-muted)] hover:text-white text-xs border-0 bg-transparent cursor-pointer">✕</button></div><!-- Controls: Stream toggle & Sort --><div class="flex items-center gap-2 flex-wrap"><label class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[var(--bg-shell)] border border-[var(--border-rule)] text-xs cursor-pointer select-none"><input type="checkbox" id="stream-only-toggle" class="accent-[var(--accent-cyan)] cursor-pointer"><span>Streams Only</span></label><select id="sort-select" class="bg-[var(--bg-shell)] border border-[var(--border-rule)] text-xs text-[var(--text-bright)] px-3 py-1.5 rounded focus:outline-none cursor-pointer"><option value="newest">Sort: Newest First</option><option value="code_asc">Sort: Code (A-Z)</option><option value="code_desc">Sort: Code (Z-A)</option><option value="streams">Sort: Most Streams</option></select></div></div><!-- Source Tabs --><div class="flex items-center gap-1.5 border-t border-[var(--border-rule)] pt-3 overflow-x-auto text-xs pb-1"><span class="text-[var(--text-muted)] text-[11px] mr-2">SOURCE:</span><button type="button" data-src="all" class="src-tab px-2.5 py-1 rounded bg-[var(--accent-cyan)] text-black font-semibold cursor-pointer border-0">All Sources</button><button type="button" data-src="jav.guru" class="src-tab px-2.5 py-1 rounded bg-[var(--bg-shell)] hover:bg-[var(--bg-panel-hover)] text-[var(--text-dim)] border border-[var(--border-rule)] cursor-pointer">JAV.guru</button><button type="button" data-src="missav" class="src-tab px-2.5 py-1 rounded bg-[var(--bg-shell)] hover:bg-[var(--bg-panel-hover)] text-[var(--text-dim)] border border-[var(--border-rule)] cursor-pointer">MissAV</button><button type="button" data-src="onejav" class="src-tab px-2.5 py-1 rounded bg-[var(--bg-shell)] hover:bg-[var(--bg-panel-hover)] text-[var(--text-dim)] border border-[var(--border-rule)] cursor-pointer">OneJAV</button><button type="button" data-src="javct" class="src-tab px-2.5 py-1 rounded bg-[var(--bg-shell)] hover:bg-[var(--bg-panel-hover)] text-[var(--text-dim)] border border-[var(--border-rule)] cursor-pointer">JavCT</button></div></div><!-- Active Result Count & Paging Header --><div class="flex items-center justify-between font-mono text-xs text-[var(--text-dim)]"><div class="flex items-center gap-2"><span id="result-count" class="text-[var(--text-bright)] font-semibold">Loading data index...</span><span id="filter-badges" class="flex items-center gap-1"></span></div><div class="flex items-center gap-2"><button id="prev-page-top" class="px-2.5 py-1 rounded bg-[var(--bg-panel)] border border-[var(--border-rule)] disabled:opacity-40 cursor-pointer" disabled>Prev</button><span id="page-display-top" class="tabular-nums">Page 1 / 1</span><button id="next-page-top" class="px-2.5 py-1 rounded bg-[var(--bg-panel)] border border-[var(--border-rule)] disabled:opacity-40 cursor-pointer" disabled>Next</button></div></div><!-- Catalogue Cards Grid --><div id="cards-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"><div class="col-span-full py-16 text-center text-xs font-mono text-[var(--text-muted)]"><div class="w-5 h-5 border-2 border-[var(--border-rule)] border-t-[var(--accent-cyan)] rounded-full animate-spin mx-auto mb-3"></div><span>Hydrating archival catalogue from data feeds...</span></div></div><!-- Bottom Pagination --><div class="flex items-center justify-center gap-3 pt-6 border-t border-[var(--border-rule)] font-mono text-xs text-[var(--text-dim)]"><button id="prev-page-bot" class="px-3 py-1.5 rounded bg-[var(--bg-panel)] hover:bg-[var(--bg-panel-hover)] border border-[var(--border-rule)] disabled:opacity-40 cursor-pointer" disabled>Previous Page</button><span id="page-display-bot" class="tabular-nums">Page 1 / 1</span><button id="next-page-bot" class="px-3 py-1.5 rounded bg-[var(--bg-panel)] hover:bg-[var(--bg-panel-hover)] border border-[var(--border-rule)] disabled:opacity-40 cursor-pointer" disabled>Next Page</button></div></div><script>
+    (function() {
+      const ITEMS_PER_PAGE = 24;
+      const IMAGE_PROXY = "https://imgproxy.mrspidyxd.workers.dev/?url=";
+      // Resolve feeds relative to the current page so both the repository root
+      // test server and the GitHub Pages /automatic-jav/ base path work.
+      const BASE_URL = new URL('../', window.location.href).href;
+
+      let RAW_DATA = [];
+      let FILTERED = [];
+      let CURRENT_PAGE = 1;
+      let CURRENT_SOURCE = 'all';
+
+      // Elements
+      const grid = document.getElementById('cards-grid');
+      const searchInput = document.getElementById('search-input');
+      const clearSearchBtn = document.getElementById('clear-search');
+      const streamOnlyToggle = document.getElementById('stream-only-toggle');
+      const sortSelect = document.getElementById('sort-select');
+      const resultCount = document.getElementById('result-count');
+      const srcTabs = document.querySelectorAll('.src-tab');
+
+      const prevTop = document.getElementById('prev-page-top');
+      const nextTop = document.getElementById('next-page-top');
+      const pageTop = document.getElementById('page-display-top');
+      const prevBot = document.getElementById('prev-page-bot');
+      const nextBot = document.getElementById('next-page-bot');
+      const pageBot = document.getElementById('page-display-bot');
+
+      // Sync URL parameters
+      function parseUrlParams() {
+        const p = new URLSearchParams(window.location.search);
+        if (p.has('q')) searchInput.value = p.get('q');
+        if (p.has('source')) CURRENT_SOURCE = p.get('source').toLowerCase();
+        if (p.has('stream')) streamOnlyToggle.checked = p.get('stream') === '1';
+        if (p.has('sort')) sortSelect.value = p.get('sort');
+        updateTabUI();
+      }
+
+      function updateUrlParams() {
+        const p = new URLSearchParams();
+        if (searchInput.value.trim()) p.set('q', searchInput.value.trim());
+        if (CURRENT_SOURCE !== 'all') p.set('source', CURRENT_SOURCE);
+        if (streamOnlyToggle.checked) p.set('stream', '1');
+        if (sortSelect.value !== 'newest') p.set('sort', sortSelect.value);
+        const str = p.toString();
+        const newUrl = str ? `${window.location.pathname}?${str}` : window.location.pathname;
+        window.history.replaceState({}, '', newUrl);
+      }
+
+      function updateTabUI() {
+        srcTabs.forEach(tab => {
+          const match = tab.getAttribute('data-src') === CURRENT_SOURCE;
+          if (match) {
+            tab.className = 'src-tab px-2.5 py-1 rounded bg-[var(--accent-cyan)] text-black font-semibold cursor-pointer border-0';
+          } else {
+            tab.className = 'src-tab px-2.5 py-1 rounded bg-[var(--bg-shell)] hover:bg-[var(--bg-panel-hover)] text-[var(--text-dim)] border border-[var(--border-rule)] cursor-pointer';
+          }
+        });
+      }
+
+      // Initial Fetch: Load compact catalogue.json (~650KB) first for mobile speed
+      async function loadAllFeeds() {
+        try {
+          const catRes = await fetch(`${BASE_URL}catalogue.json`);
+          if (catRes.ok) {
+            const data = await catRes.json();
+            const rawList = Array.isArray(data) ? data : (data.items || []);
+            RAW_DATA = rawList.map(item => ({
+              code: (item.c || item.code || '').toUpperCase(),
+              title: item.t || item.title || item.c || '',
+              page_url: item.u || item.page_url || '',
+              image_url: item.i || item.image_url || '',
+              source: item.s || item.source || 'jav.guru',
+              source_tag: item.s || item.source_tag || item.source || 'jav.guru',
+              streams: item.st || item.streams || [],
+              torrent_url: item.tor || item.torrent_url || '',
+              size: item.sz || item.size || '',
+              views: item.v || item.views || '',
+              actresses: item.act || item.actresses || '',
+              date: item.d || item.date || ''
+            }));
+            parseUrlParams();
+            applyFilters();
+            return;
+          }
+        } catch (e) {
+          console.warn('catalogue.json unavailable, falling back to legacy feeds', e);
+        }
+
+        // Fallback to legacy individual feeds
+        try {
+          const [missavRes, onejavRes, javctRes] = await Promise.allSettled([
+            fetch(`${BASE_URL}missav.json`).then(r => r.json()),
+            fetch(`${BASE_URL}onejav.json`).then(r => r.json()),
+            fetch(`${BASE_URL}javct.json`).then(r => r.json()),
+          ]);
+
+          const combined = [];
+
+          if (missavRes.status === 'fulfilled' && Array.isArray(missavRes.value)) {
+            missavRes.value.slice(0, 1000).forEach(item => {
+              combined.push({
+                code: item.code || '',
+                title: item.code ? item.code.toUpperCase() : 'MissAV Media',
+                page_url: `https://missav123.com/dm291/en/${item.code || ''}`,
+                image_url: item.code ? `https://fourhoi.com/${item.code.toLowerCase()}/cover-n.jpg` : '',
+                source: 'missav',
+                source_tag: item.tag || 'category',
+                streams: item.entries || [],
+                date: item.date_added || ''
+              });
+            });
+          }
+
+          if (onejavRes.status === 'fulfilled' && Array.isArray(onejavRes.value)) {
+            onejavRes.value.forEach(item => {
+              combined.push({
+                code: item.code || '',
+                title: item.title || item.code || '',
+                page_url: item.page_url || '',
+                image_url: item.image_url || '',
+                torrent_url: item.torrent_url || '',
+                size: item.size || '',
+                actresses: item.actresses || '',
+                tags: item.tags || '',
+                source: 'onejav',
+                source_tag: item.source_tag || 'new',
+                streams: [],
+                date: item.date || ''
+              });
+            });
+          }
+
+          if (javctRes.status === 'fulfilled' && Array.isArray(javctRes.value)) {
+            javctRes.value.forEach(item => {
+              combined.push({
+                code: item.code || '',
+                title: item.title || '',
+                page_url: item.page_url || '',
+                image_url: item.image_url || '',
+                views: item.views || '',
+                source: 'javct',
+                source_tag: item.source_tag || 'new',
+                streams: [],
+                date: item.date_scraped || ''
+              });
+            });
+          }
+
+          RAW_DATA = combined;
+          parseUrlParams();
+          applyFilters();
+        } catch (e) {
+          const errBox = document.createElement('div');
+          errBox.className = 'col-span-full p-8 text-center text-xs font-mono text-[var(--accent-amber)]';
+          errBox.textContent = 'Failed to load media feeds. Please verify data files in docs/.';
+          grid.replaceChildren(errBox);
+        }
+      }
+
+      function applyFilters() {
+        const query = searchInput.value.trim().toLowerCase();
+        const streamOnly = streamOnlyToggle.checked;
+        const sort = sortSelect.value;
+
+        if (clearSearchBtn) clearSearchBtn.classList.toggle('hidden', !query);
+
+        FILTERED = RAW_DATA.filter(it => {
+          if (CURRENT_SOURCE !== 'all') {
+            if (CURRENT_SOURCE === 'jav.guru') {
+              if (it.source_tag !== 'jav.guru') return false;
+            } else if (it.source !== CURRENT_SOURCE) {
+              return false;
+            }
+          }
+
+          if (streamOnly && (!it.streams || it.streams.length === 0)) {
+            return false;
+          }
+
+          if (query) {
+            const hay = `${it.code} ${it.title} ${it.actresses || ''} ${it.tags || ''} ${it.source}`.toLowerCase();
+            if (!hay.includes(query)) return false;
+          }
+
+          return true;
+        });
+
+        // Sort
+        if (sort === 'code_asc') {
+          FILTERED.sort((a, b) => (a.code || '').localeCompare(b.code || ''));
+        } else if (sort === 'code_desc') {
+          FILTERED.sort((a, b) => (b.code || '').localeCompare(a.code || ''));
+        } else if (sort === 'streams') {
+          FILTERED.sort((a, b) => (b.streams?.length || 0) - (a.streams?.length || 0));
+        } else {
+          FILTERED.sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+        }
+
+        CURRENT_PAGE = 1;
+        updateUrlParams();
+        render();
+      }
+
+      function render() {
+        const totalPages = Math.max(1, Math.ceil(FILTERED.length / ITEMS_PER_PAGE));
+        if (CURRENT_PAGE > totalPages) CURRENT_PAGE = totalPages;
+        if (CURRENT_PAGE < 1) CURRENT_PAGE = 1;
+
+        const start = (CURRENT_PAGE - 1) * ITEMS_PER_PAGE;
+        const chunk = FILTERED.slice(start, start + ITEMS_PER_PAGE);
+
+        resultCount.textContent = `${FILTERED.length.toLocaleString()} matching records`;
+        const pageText = `Page ${CURRENT_PAGE} / ${totalPages}`;
+        pageTop.textContent = pageText;
+        pageBot.textContent = pageText;
+
+        prevTop.disabled = CURRENT_PAGE <= 1;
+        prevBot.disabled = CURRENT_PAGE <= 1;
+        nextTop.disabled = CURRENT_PAGE >= totalPages;
+        nextBot.disabled = CURRENT_PAGE >= totalPages;
+
+        function safeUrl(raw) {
+          if (!raw || typeof raw !== 'string') return '';
+          const trimmed = raw.trim();
+          if (trimmed.startsWith('https://') || trimmed.startsWith('http://') || trimmed.startsWith('/')) {
+            return trimmed;
+          }
+          return '';
+        }
+
+        grid.replaceChildren();
+        if (chunk.length === 0) {
+          const empty = document.createElement('div');
+          empty.className = 'col-span-full py-16 text-center text-xs font-mono text-[var(--text-muted)] border border-dashed border-[var(--border-rule)] rounded-lg';
+          empty.textContent = 'No matching records found in this scope.';
+
+          const resetBtn = document.createElement('button');
+          resetBtn.type = 'button';
+          resetBtn.className = 'mt-3 block mx-auto px-3 py-1 text-xs rounded bg-[var(--bg-panel-elevated)] border border-[var(--border-rule)] text-[var(--accent-cyan)] cursor-pointer';
+          resetBtn.textContent = 'Reset All Filters';
+          resetBtn.onclick = () => {
+            searchInput.value = '';
+            streamOnlyToggle.checked = false;
+            CURRENT_SOURCE = 'all';
+            updateTabUI();
+            applyFilters();
+          };
+
+          empty.appendChild(resetBtn);
+          grid.appendChild(empty);
+          return;
+        }
+
+        chunk.forEach(it => {
+          grid.appendChild(buildCard(it));
+        });
+      }
+
+      function buildCard(item) {
+        function safeUrl(raw) {
+          if (!raw || typeof raw !== 'string') return '';
+          const trimmed = raw.trim();
+          if (trimmed.startsWith('https://') || trimmed.startsWith('http://') || trimmed.startsWith('/')) {
+            return trimmed;
+          }
+          return '';
+        }
+
+        const card = document.createElement('article');
+        card.className = 'bg-[var(--bg-panel)] border border-[var(--border-rule)] hover:border-[var(--accent-cyan)] rounded-lg overflow-hidden flex flex-col font-mono text-xs transition-all shadow-sm hover:shadow-md';
+
+        // Thumbnail with play overlay
+        const thumbBox = document.createElement('div');
+        thumbBox.className = 'relative aspect-[16/10] bg-black/50 overflow-hidden cursor-pointer group';
+
+        const placeholder = document.createElement('div');
+        placeholder.className = 'w-full h-full flex items-center justify-center bg-[var(--bg-panel-elevated)] text-[var(--text-muted)] text-[10px]';
+        placeholder.textContent = 'NO PREVIEW';
+
+        const originalImg = safeUrl(item.image_url);
+        const proxyImg = originalImg && originalImg.startsWith('http')
+          ? safeUrl(IMAGE_PROXY + encodeURIComponent(originalImg))
+          : '';
+        const imgCandidates = [originalImg, proxyImg].filter(Boolean);
+        let imgCandidateIndex = 0;
+        const imgSrc = imgCandidates[imgCandidateIndex] || '';
+
+        if (imgSrc) {
+          const img = document.createElement('img');
+          img.src = imgSrc;
+          img.loading = 'lazy';
+          img.alt = item.code || 'Media';
+          img.className = 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300';
+          img.onerror = () => {
+            imgCandidateIndex += 1;
+            if (imgCandidateIndex < imgCandidates.length) {
+              img.src = imgCandidates[imgCandidateIndex];
+            } else {
+              thumbBox.replaceChildren(placeholder);
+            }
+          };
+          thumbBox.appendChild(img);
+
+          const overlay = document.createElement('div');
+          overlay.className = 'absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center';
+          const playCircle = document.createElement('span');
+          playCircle.className = 'w-10 h-10 rounded-full bg-[var(--accent-cyan)] text-black flex items-center justify-center text-sm font-bold shadow-lg';
+          playCircle.textContent = '▶';
+          overlay.appendChild(playCircle);
+          thumbBox.appendChild(overlay);
+        } else {
+          thumbBox.appendChild(placeholder);
+        }
+
+        thumbBox.onclick = () => {
+          window.AppPlayer?.play(item);
+        };
+
+        // Source & Code tags bar
+        const header = document.createElement('div');
+        header.className = 'p-3 flex items-center justify-between gap-2 border-b border-[var(--border-rule)]';
+
+        const codeSpan = document.createElement('span');
+        codeSpan.className = 'card-code font-bold text-[var(--text-bright)] text-sm tracking-wide cursor-pointer hover:text-[var(--accent-cyan)]';
+        codeSpan.setAttribute('data-code', item.code || '');
+        codeSpan.textContent = item.code || 'UNTAGGED';
+        codeSpan.title = 'Click to copy code';
+        codeSpan.onclick = (e) => {
+          e.stopPropagation();
+          navigator.clipboard.writeText(item.code || '').then(() => {
+            const orig = codeSpan.textContent;
+            codeSpan.textContent = 'COPIED!';
+            setTimeout(() => { codeSpan.textContent = orig; }, 1200);
+          });
+        };
+
+        const srcBadge = document.createElement('span');
+        srcBadge.className = item.source_tag === 'jav.guru'
+          ? 'px-1.5 py-0.5 rounded text-[10px] bg-cyan-950 text-[var(--accent-cyan)] border border-cyan-800 uppercase'
+          : 'px-1.5 py-0.5 rounded text-[10px] bg-purple-950 text-purple-400 border border-purple-800 uppercase';
+        srcBadge.textContent = item.source === 'javct' ? 'JavCT' : (item.source === 'onejav' ? 'OneJAV' : item.source_tag || item.source);
+
+        header.appendChild(codeSpan);
+        header.appendChild(srcBadge);
+
+        // Card body
+        const body = document.createElement('div');
+        body.className = 'p-3 flex-1 flex flex-col justify-between space-y-2';
+
+        if (item.title) {
+          const title = document.createElement('p');
+          title.className = 'text-[11px] text-[var(--text-dim)] line-clamp-2 leading-relaxed';
+          title.textContent = item.title;
+          body.appendChild(title);
+        }
+
+        if (item.actresses) {
+          const actress = document.createElement('div');
+          actress.className = 'text-[11px] text-[var(--accent-cyan)] truncate';
+          actress.textContent = `👤 ${item.actresses}`;
+          body.appendChild(actress);
+        }
+
+        // Meta indicators (streams / size / date)
+        const meta = document.createElement('div');
+        meta.className = 'pt-2 flex items-center justify-between text-[10px] text-[var(--text-muted)] border-t border-[var(--border-rule)]';
+
+        const metaSpan = document.createElement('span');
+        if (item.streams && item.streams.length > 0) {
+          metaSpan.className = 'text-[var(--accent-green)] font-semibold flex items-center gap-1';
+          metaSpan.textContent = `● ${item.streams.length} HLS Stream${item.streams.length > 1 ? 's' : ''}`;
+        } else if (item.torrent_url) {
+          metaSpan.className = 'text-[var(--accent-amber)] font-semibold';
+          metaSpan.textContent = `🧲 ${item.size || 'Torrent'}`;
+        } else if (item.views) {
+          metaSpan.textContent = `👁 ${item.views} views`;
+        } else {
+          metaSpan.textContent = 'Indexed Record';
+        }
+        meta.appendChild(metaSpan);
+
+        if (item.date) {
+          const dateSpan = document.createElement('span');
+          dateSpan.textContent = item.date;
+          meta.appendChild(dateSpan);
+        }
+        body.appendChild(meta);
+
+        // Actions footer
+        const actions = document.createElement('div');
+        actions.className = 'p-2 bg-[var(--bg-shell)] border-t border-[var(--border-rule)] flex items-center justify-between gap-2';
+
+        const playBtn = document.createElement('button');
+        playBtn.type = 'button';
+        playBtn.className = 'flex-1 py-1 px-2 rounded bg-[var(--bg-panel-elevated)] hover:bg-[var(--bg-panel-hover)] border border-[var(--border-rule)] text-[var(--text-bright)] text-[11px] font-semibold flex items-center justify-center gap-1 cursor-pointer';
+        const playIcon = document.createElement('span');
+        playIcon.textContent = '▶';
+        playBtn.appendChild(playIcon);
+        playBtn.append(' Play');
+        playBtn.onclick = () => window.AppPlayer?.play(item);
+
+        const streamUrl = item.streams?.map(stream =>
+          typeof stream === 'string' ? stream : stream?.url
+        ).map(safeUrl).find(Boolean) || '';
+        if (streamUrl) {
+          const copyBtn = document.createElement('button');
+          copyBtn.type = 'button';
+          copyBtn.className = 'py-1 px-2 rounded bg-[var(--bg-panel-elevated)] hover:bg-[var(--bg-panel-hover)] border border-[var(--border-rule)] text-[var(--accent-cyan)] text-[11px] cursor-pointer';
+          copyBtn.textContent = 'Copy stream';
+          copyBtn.title = 'Copy the first available stream URL';
+          copyBtn.onclick = async (e) => {
+            e.stopPropagation();
+            try {
+              await navigator.clipboard.writeText(streamUrl);
+            } catch {
+              const helper = document.createElement('textarea');
+              helper.value = streamUrl;
+              helper.style.position = 'fixed';
+              helper.style.opacity = '0';
+              document.body.appendChild(helper);
+              helper.select();
+              document.execCommand('copy');
+              helper.remove();
+            }
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => { copyBtn.textContent = 'Copy stream'; }, 1200);
+          };
+          actions.appendChild(copyBtn);
+        }
+
+        const outBtn = document.createElement('a');
+        outBtn.className = 'py-1 px-2 rounded bg-[var(--bg-panel-elevated)] hover:bg-[var(--bg-panel-hover)] border border-[var(--border-rule)] text-[var(--text-dim)] hover:text-[var(--text-bright)] text-[11px] no-underline flex items-center justify-center';
+        outBtn.href = safeUrl(item.page_url) || '#';
+        outBtn.target = '_blank';
+        outBtn.rel = 'noopener';
+        outBtn.textContent = '↗';
+        outBtn.title = 'Open Source';
+
+        actions.appendChild(playBtn);
+        actions.appendChild(outBtn);
+
+        card.appendChild(thumbBox);
+        card.appendChild(header);
+        card.appendChild(body);
+        card.appendChild(actions);
+        return card;
+      }
+
+      // Source Tabs Event Handlers
+      srcTabs.forEach(tab => {
+        tab.onclick = () => {
+          CURRENT_SOURCE = tab.getAttribute('data-src');
+          updateTabUI();
+          applyFilters();
+        };
+      });
+
+      // Search & Control Handlers with 150ms debounce
+      let searchTimer;
+      searchInput.addEventListener('input', () => {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(applyFilters, 150);
+      });
+
+      if (clearSearchBtn) {
+        clearSearchBtn.onclick = () => {
+          searchInput.value = '';
+          applyFilters();
+        };
+      }
+
+      streamOnlyToggle.onchange = applyFilters;
+      sortSelect.onchange = applyFilters;
+
+      // Pagination Handlers
+      function goToPage(p) {
+        CURRENT_PAGE = p;
+        render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      prevTop.onclick = () => goToPage(CURRENT_PAGE - 1);
+      prevBot.onclick = () => goToPage(CURRENT_PAGE - 1);
+      nextTop.onclick = () => goToPage(CURRENT_PAGE + 1);
+      nextBot.onclick = () => goToPage(CURRENT_PAGE + 1);
+
+      // Initialize
+      loadAllFeeds();
+    })();
+  </script></main><!-- Global Footer --><footer class="border-t border-[var(--border-rule)] bg-[var(--bg-panel)] mt-auto py-6 text-xs text-[var(--text-dim)] font-mono" data-astro-cid-z4jru4n3><div class="max-w-7xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4" data-astro-cid-z4jru4n3><div class="flex items-center gap-3" data-astro-cid-z4jru4n3><span data-astro-cid-z4jru4n3>JAV.GURU ARCHIVE CONSOLE</span><span data-astro-cid-z4jru4n3>·</span><span data-astro-cid-z4jru4n3>RESEARCH & METADATA FEED</span></div><div class="flex items-center gap-4" data-astro-cid-z4jru4n3><a href="/automatic-jav/sitemap.html" class="hover:text-[var(--text-cyan)] text-inherit no-underline" data-astro-cid-z4jru4n3>Sitemap</a><a href="/automatic-jav/stats.html" class="hover:text-[var(--text-cyan)] text-inherit no-underline" data-astro-cid-z4jru4n3>Telemetry</a><a href="https://github.com/MrSpidy32/automatic-jav" target="_blank" rel="noopener noreferrer" class="hover:text-[var(--text-cyan)] text-inherit no-underline" data-astro-cid-z4jru4n3>GitHub Source</a></div></div></footer><!-- Command Palette Modal (<dialog>) --><dialog id="cmd-dialog" class="backdrop:bg-black/75 bg-[var(--bg-panel)] border border-[var(--border-rule)] text-[var(--text-bright)] rounded-lg shadow-2xl p-0 w-full max-w-lg m-auto" data-astro-cid-z4jru4n3><div class="p-3 border-b border-[var(--border-rule)] flex items-center gap-2" data-astro-cid-z4jru4n3><span class="text-[var(--text-cyan)] font-mono text-sm" data-astro-cid-z4jru4n3>❯</span><input type="search" id="cmd-input" placeholder="Type a command, route, or video code..." class="w-full bg-transparent border-0 text-sm font-mono text-[var(--text-bright)] focus:outline-none placeholder:text-[var(--text-muted)]" autocomplete="off" data-astro-cid-z4jru4n3><kbd class="text-[10px] font-mono bg-[var(--bg-shell)] border border-[var(--border-rule)] px-1.5 py-0.5 rounded text-[var(--text-dim)]" data-astro-cid-z4jru4n3>ESC</kbd></div><div id="cmd-results" class="max-h-80 overflow-y-auto p-2 font-mono text-xs flex flex-col gap-1" data-astro-cid-z4jru4n3><div class="text-[10px] text-[var(--text-muted)] px-2 py-1 uppercase tracking-wider" data-astro-cid-z4jru4n3>Direct Navigation</div><a href="/automatic-jav/" class="cmd-item flex items-center justify-between px-3 py-2 rounded hover:bg-[var(--bg-panel-hover)] text-inherit no-underline" data-astro-cid-z4jru4n3><span data-astro-cid-z4jru4n3>Overview & Freshness Dashboard</span><span class="text-[var(--text-dim)]" data-astro-cid-z4jru4n3>/</span></a><a href="/automatic-jav/browse.html" class="cmd-item flex items-center justify-between px-3 py-2 rounded hover:bg-[var(--bg-panel-hover)] text-inherit no-underline" data-astro-cid-z4jru4n3><span data-astro-cid-z4jru4n3>Browse All Media Records</span><span class="text-[var(--text-dim)]" data-astro-cid-z4jru4n3>/browse.html</span></a><a href="/automatic-jav/codes.html" class="cmd-item flex items-center justify-between px-3 py-2 rounded hover:bg-[var(--bg-panel-hover)] text-inherit no-underline" data-astro-cid-z4jru4n3><span data-astro-cid-z4jru4n3>Code Accession Index</span><span class="text-[var(--text-dim)]" data-astro-cid-z4jru4n3>/codes.html</span></a><a href="/automatic-jav/models.html" class="cmd-item flex items-center justify-between px-3 py-2 rounded hover:bg-[var(--bg-panel-hover)] text-inherit no-underline" data-astro-cid-z4jru4n3><span data-astro-cid-z4jru4n3>Models & Actresses Directory</span><span class="text-[var(--text-dim)]" data-astro-cid-z4jru4n3>/models.html</span></a><a href="/automatic-jav/stats.html" class="cmd-item flex items-center justify-between px-3 py-2 rounded hover:bg-[var(--bg-panel-hover)] text-inherit no-underline" data-astro-cid-z4jru4n3><span data-astro-cid-z4jru4n3>Ingestion Statistics & Charts</span><span class="text-[var(--text-dim)]" data-astro-cid-z4jru4n3>/stats.html</span></a><a href="/automatic-jav/sitemap.html" class="cmd-item flex items-center justify-between px-3 py-2 rounded hover:bg-[var(--bg-panel-hover)] text-inherit no-underline" data-astro-cid-z4jru4n3><span data-astro-cid-z4jru4n3>Sitemap & Raw Exports (CSV/JSON)</span><span class="text-[var(--text-dim)]" data-astro-cid-z4jru4n3>/sitemap.html</span></a></div></dialog><!-- Video Player Modal / Island --><dialog id="video-player-dialog" class="backdrop:bg-black/90 bg-black border border-[var(--border-rule)] text-white rounded-lg p-0 w-full max-w-4xl m-auto shadow-2xl" data-astro-cid-z4jru4n3><div class="flex items-center justify-between p-3 border-b border-[var(--border-rule)] bg-[var(--bg-panel)] text-xs font-mono" data-astro-cid-z4jru4n3><div class="flex items-center gap-2 truncate" data-astro-cid-z4jru4n3><span class="text-[var(--accent-cyan)]" data-astro-cid-z4jru4n3>PLAYBACK:</span><span id="player-title" class="text-white font-bold truncate" data-astro-cid-z4jru4n3>Loading...</span></div><div class="flex items-center gap-3" data-astro-cid-z4jru4n3><span id="player-quality-tag" class="px-1.5 py-0.5 bg-[var(--border-rule)] rounded text-[10px] uppercase" data-astro-cid-z4jru4n3></span><button id="close-player-btn" type="button" class="text-gray-400 hover:text-white px-2 py-1 bg-transparent border-0 cursor-pointer font-bold text-sm" data-astro-cid-z4jru4n3>✕</button></div></div><div class="relative aspect-video bg-black flex items-center justify-center" data-astro-cid-z4jru4n3><video id="hls-video" controls playsinline class="w-full h-full max-h-[75vh]" data-astro-cid-z4jru4n3></video><div id="player-status" class="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-black/80 font-mono text-xs hidden" data-astro-cid-z4jru4n3><span id="player-error-msg" class="text-[var(--accent-amber)] mb-2" data-astro-cid-z4jru4n3></span><a id="player-fallback-link" href="#" target="_blank" rel="noopener" class="text-[var(--accent-cyan)] underline hover:text-white" data-astro-cid-z4jru4n3>Open Source Web Page ↗</a></div></div><div id="player-stream-pills" class="p-3 bg-[var(--bg-panel)] flex flex-wrap items-center gap-2 border-t border-[var(--border-rule)] font-mono text-xs" data-astro-cid-z4jru4n3><!-- Dynamically populated stream quality selector pills --></div></dialog><!-- Client Scripts: Theme, Command Palette, Shortcuts, Hls Video Island --><script>
+    // Theme setup
+    (function() {
+      const savedTheme = localStorage.getItem('theme') || 'dark';
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      const themeBtn = document.getElementById('theme-toggle-btn');
+      if (themeBtn) {
+        themeBtn.onclick = () => {
+          const current = document.documentElement.getAttribute('data-theme');
+          const next = current === 'light' ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+        };
+      }
+    })();
+
+    // Command Palette
+    (function() {
+      const dialog = document.getElementById('cmd-dialog');
+      const openBtn = document.getElementById('cmd-palette-btn');
+      const input = document.getElementById('cmd-input');
+      const results = document.getElementById('cmd-results');
+      if (!dialog) return;
+
+      function openPalette() {
+        dialog.showModal();
+        if (input) { input.value = ''; input.focus(); }
+      }
+      function closePalette() { dialog.close(); }
+
+      if (openBtn) openBtn.onclick = openPalette;
+      dialog.onclick = (e) => { if (e.target === dialog) closePalette(); };
+
+      // Global keyboard listener
+      window.addEventListener('keydown', (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+          e.preventDefault();
+          if (dialog.open) closePalette(); else openPalette();
+        } else if (e.key === '/' && !['INPUT', 'TEXTAREA'].includes(document.activeElement.tagName)) {
+          e.preventDefault();
+          openPalette();
+        }
+      });
+
+      // Quick code filter inside command palette
+      if (input && results) {
+        input.addEventListener('input', (e) => {
+          const q = e.target.value.trim().toLowerCase();
+          const items = results.querySelectorAll('.cmd-item');
+          items.forEach(it => {
+            const text = it.textContent.toLowerCase();
+            it.style.display = !q || text.includes(q) ? 'flex' : 'none';
+          });
+        });
+      }
+    })();
+
+    // HLS Player Island Controller
+    window.AppPlayer = (function() {
+      let hlsInstance = null;
+      const dialog = document.getElementById('video-player-dialog');
+      const video = document.getElementById('hls-video');
+      const titleEl = document.getElementById('player-title');
+      const qualityTag = document.getElementById('player-quality-tag');
+      const statusBox = document.getElementById('player-status');
+      const errorMsg = document.getElementById('player-error-msg');
+      const fallbackLink = document.getElementById('player-fallback-link');
+      const pillsContainer = document.getElementById('player-stream-pills');
+      const closeBtn = document.getElementById('close-player-btn');
+
+      if (!dialog || !video) return { play: () => {} };
+
+      function stop() {
+        if (hlsInstance) {
+          hlsInstance.destroy();
+          hlsInstance = null;
+        }
+        video.pause();
+        video.removeAttribute('src');
+        video.load();
+        if (statusBox) statusBox.classList.add('hidden');
+      }
+
+      function close() {
+        stop();
+        dialog.close();
+      }
+
+      if (closeBtn) closeBtn.onclick = close;
+      dialog.onclick = (e) => { if (e.target === dialog) close(); };
+
+      async function play(item) {
+        stop();
+        function safeUrl(raw) {
+          if (!raw || typeof raw !== 'string') return '#';
+          const trimmed = raw.trim();
+          if (trimmed.startsWith('https://') || trimmed.startsWith('http://') || trimmed.startsWith('/')) {
+            return trimmed;
+          }
+          return '#';
+        }
+
+        if (titleEl) titleEl.textContent = item.code ? `${item.code.toUpperCase()} ${item.title || ''}` : (item.title || 'Video Stream');
+        if (fallbackLink) fallbackLink.href = safeUrl(item.page_url);
+
+        const streams = (item.streams && item.streams.length ? item.streams : item.entries) || [];
+
+        // Render quality selector pills
+        if (pillsContainer) {
+          pillsContainer.replaceChildren();
+          const label = document.createElement('span');
+          label.className = 'text-[var(--text-muted)] mr-2';
+          label.textContent = 'AVAILABLE STREAMS:';
+          pillsContainer.appendChild(label);
+
+          if (streams.length === 0) {
+            const previewUrl = `https://fourhoi.com/${encodeURIComponent((item.code || '').toLowerCase())}/preview.mp4`;
+            const pill = document.createElement('button');
+            pill.className = 'px-2 py-1 rounded bg-[var(--bg-panel-elevated)] border border-[var(--border-rule)] text-[var(--accent-cyan)] font-mono text-xs cursor-pointer';
+            pill.textContent = 'Preview MP4';
+            pill.onclick = () => loadSource(previewUrl, 'direct', 'preview');
+            pillsContainer.appendChild(pill);
+          } else {
+            streams.forEach((s) => {
+              const pill = document.createElement('button');
+              pill.className = 'px-2 py-1 rounded bg-[var(--bg-panel-elevated)] hover:bg-[var(--bg-panel-hover)] border border-[var(--border-rule)] text-[var(--text-bright)] font-mono text-xs cursor-pointer';
+              pill.textContent = `${s.quality || 'stream'} (${s.source || 'surrit'})`;
+              pill.onclick = () => loadSource(safeUrl(s.url), 'hls', s.quality || 'stream');
+              pillsContainer.appendChild(pill);
+            });
+          }
+        }
+
+        dialog.showModal();
+
+        // Auto select best stream
+        if (streams.length > 0) {
+          const best = streams.find(s => s.quality === '1080p') || streams.find(s => s.quality === '720p') || streams[0];
+          loadSource(best.url, 'hls', best.quality || 'auto');
+        } else if (item.code) {
+          const previewUrl = `https://fourhoi.com/${item.code.toLowerCase()}/preview.mp4`;
+          loadSource(previewUrl, 'direct', 'preview');
+        }
+      }
+
+      const appBase = document.body.dataset.base || '/';
+
+      function loadHlsLibrary(onSuccess, onError) {
+        if (window.Hls) {
+          onSuccess(window.Hls);
+          return;
+        }
+
+        // Try local pinned asset first (bundled via npm hls.js 1.7.2)
+        const localScript = document.createElement('script');
+        localScript.src = `${appBase}hls.min.js`;
+        localScript.onload = () => {
+          if (window.Hls) onSuccess(window.Hls);
+          else fallbackCdn();
+        };
+        localScript.onerror = () => fallbackCdn();
+
+        function fallbackCdn() {
+          const cdnScript = document.createElement('script');
+          cdnScript.src = 'https://cdn.jsdelivr.net/npm/hls.js@1.7.2/dist/hls.min.js';
+          cdnScript.integrity = 'sha384-xZKOEqJSfUEI1E4N6MG1+KjnKYM1R1v2WKpyaS0c+ksIxRi5PB8MAkyEdX48MX2/';
+          cdnScript.crossOrigin = 'anonymous';
+          cdnScript.onload = () => {
+            if (window.Hls) onSuccess(window.Hls);
+            else onError('Failed to initialize Hls.js library.');
+          };
+          cdnScript.onerror = () => onError('Failed to load Hls.js library from local and CDN sources.');
+          document.head.appendChild(cdnScript);
+        }
+
+        document.head.appendChild(localScript);
+      }
+
+      function loadSource(url, type, quality) {
+        const browserUrl = url;
+        if (qualityTag) qualityTag.textContent = quality;
+        if (statusBox) statusBox.classList.add('hidden');
+
+        if (type === 'hls' && browserUrl.includes('.m3u8')) {
+          loadHlsLibrary(
+            (HlsClass) => initHls(HlsClass, browserUrl),
+            (errMsg) => handlePlayerError(errMsg)
+          );
+        } else {
+          video.src = browserUrl;
+          video.play().catch(() => {});
+        }
+      }
+
+      function initHls(HlsClass, streamUrl) {
+        if (HlsClass.isSupported()) {
+          if (hlsInstance) hlsInstance.destroy();
+          hlsInstance = new HlsClass({ enableWorker: true, lowLatencyMode: false });
+          hlsInstance.loadSource(streamUrl);
+          hlsInstance.attachMedia(video);
+          hlsInstance.on(HlsClass.Events.MANIFEST_PARSED, () => {
+            video.play().catch(() => {});
+          });
+          hlsInstance.on(HlsClass.Events.ERROR, (_, data) => {
+            if (data.fatal) {
+              handlePlayerError(`Playback error: Stream source returned code ${data.response?.code || 'offline'}.`);
+            }
+          });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          video.src = streamUrl;
+          video.play().catch(() => {});
+        } else {
+          handlePlayerError("HLS playback is not supported on this device/browser.");
+        }
+      }
+
+      function handlePlayerError(msg) {
+        if (statusBox) statusBox.classList.remove('hidden');
+        if (errorMsg) errorMsg.textContent = msg;
+      }
+
+      return { play, stop, close };
+    })();
+  </script></body></html>

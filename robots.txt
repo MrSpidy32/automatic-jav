@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://guiltjay.github.io/automatic-jav/sitemap.xml
